@@ -1,0 +1,74 @@
+<view class="page">
+  <!-- 顶部蓝色区域 -->
+  <view class="header">
+    <view class="user-info">
+      <image class="avatar" src="{{user.avatar || 'https://picsum.photos/seed/default/200/200'}}" />
+      <view class="text">
+        <view class="name">
+          {{user.nickName || '张三'}}
+          <text class="vip-tag">VIP 极速达</text>
+        </view>
+        <view class="dept">广州软件学院</view>
+      </view>
+    </view>
+    <view class="settings-icon">⚙️</view>
+
+    <!-- 信用分卡片 -->
+    <view class="credit-card">
+      <view class="left">
+        <text class="shield-icon">🛡️</text>
+        <text>信用水平：卓越</text>
+      </view>
+      <view class="score">{{user.creditScore || 100}}</view>
+    </view>
+  </view>
+
+  <!-- 数据统计 -->
+  <view class="stats">
+    <view class="stat-item">
+      <view class="num">{{user.publishCount || 12}}</view>
+      <view class="label">我发布的</view>
+    </view>
+    <view class="stat-item">
+      <view class="num">{{user.soldCount || 45}}</view>
+      <view class="label">我卖出的</view>
+    </view>
+    <view class="stat-item">
+      <view class="num">{{user.boughtCount || 8}}</view>
+      <view class="label">我买到的</view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu">
+    <view class="menu-item">
+      <text class="icon blue">💙</text>
+      <text class="name">我的收藏</text>
+      <text class="arrow">></text>
+    </view>
+    <view class="menu-item">
+      <text class="icon green">♻️</text>
+      <text class="name">浏览记录</text>
+      <text class="arrow">></text>
+    </view>
+    <view class="menu-item">
+      <text class="icon orange">🪪</text>
+      <text class="name">实名认证</text>
+      <text class="status">已认证</text>
+      <text class="arrow">></text>
+    </view>
+    <view class="menu-item">
+      <text class="icon purple">🎧</text>
+      <text class="name">客服与反馈</text>
+      <text class="arrow">></text>
+    </view>
+    <view class="menu-item">
+      <text class="icon">ℹ️</text>
+      <text class="name">关于平台</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <button class="logout-btn" bindtap="logout">退出登录</button>
+</view>

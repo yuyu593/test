@@ -1,0 +1,34 @@
+<view class="second-list">
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <picker mode="selector" range="{{typeList}}" bindchange="handleTypeChange">
+      <view class="filter-item">{{currentType || '全部分类'}}</view>
+    </picker>
+    
+    <input placeholder="价格区间（最低）" type="digit" bindinput="handleMinPriceInput" class="price-input" />
+    <text>-</text>
+    <input placeholder="最高" type="digit" bindinput="handleMaxPriceInput" class="price-input" />
+    
+    <button bindtap="handleSearch">筛选</button>
+  </view>
+
+  <!-- 物品列表 -->
+  <view class="goods-list">
+    <block wx:for="{{goodsList}}" wx:key="id">
+      <navigator url="/pages/secondHand/detail/detail?id={{item.id}}">
+        <view class="goods-item">
+          <image src="{{item.imgUrls ? item.imgUrls.split(',')[0] : '/images/default.png'}}" class="goods-img" mode="aspectFill" />
+          <view class="goods-info">
+            <view class="goods-name">{{item.goodsName}}</view>
+            <view class="goods-price">¥{{item.price}}</view>
+            <view class="goods-desc">{{item.goodsDesc}}</view>
+            <view class="goods-address">{{item.tradeAddress}}</view>
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+
+  <!-- 发布按钮 -->
+  <button class="publish-btn" bindtap="gotoPublish">发布闲置</button>
+</view>

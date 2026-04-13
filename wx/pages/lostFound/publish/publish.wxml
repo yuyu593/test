@@ -1,0 +1,47 @@
+<view class="publish-container">
+  <view class="form-item">
+    <text class="label">物品名称：</text>
+    <input placeholder="请输入物品名称" bindinput="handleNameInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">物品分类：</text>
+    <picker mode="selector" range="{{typeList}}" bindchange="handleTypeChange">
+      <view>{{currentType || '请选择分类'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">物品成色：</text>
+    <picker mode="selector" range="{{qualityList}}" bindchange="handleQualityChange">
+      <view>{{currentQuality || '请选择成色'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">价格：</text>
+    <input placeholder="请输入价格" type="digit" bindinput="handlePriceInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">物品描述：</text>
+    <textarea placeholder="请输入物品描述" bindinput="handleDescInput" rows="5" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">交易地点：</text>
+    <input placeholder="请输入交易地点" bindinput="handleAddressInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">上传图片：</text>
+    <view class="upload-area">
+      <block wx:for="{{imgList}}" wx:key="index">
+        <image src="{{item}}" class="upload-img" mode="aspectFill" />
+      </block>
+      <button bindtap="chooseImage" wx:if="{{imgList.length < 5}}">+</button>
+    </view>
+  </view>
+
+  <button class="submit-btn" bindtap="handleSubmit">发布</button>
+</view>

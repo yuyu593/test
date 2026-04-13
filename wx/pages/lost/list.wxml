@@ -1,0 +1,57 @@
+<view class="page">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <view class="title">消息</view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view scroll-y class="list">
+    <!-- 系统通知 -->
+    <view class="msg-item">
+      <view class="avatar blue">🔔</view>
+      <view class="content">
+        <view class="row">
+          <view class="name">系统通知</view>
+          <view class="time">刚刚</view>
+        </view>
+        <view class="desc">您发布的闲置商品已被拍下，请及时处理~</view>
+      </view>
+    </view>
+
+    <!-- 交易消息 -->
+    <view class="msg-item">
+      <view class="avatar green">🤝</view>
+      <view class="content">
+        <view class="row">
+          <view class="name">交易消息</view>
+          <view class="time">10分钟前</view>
+        </view>
+        <view class="desc">用户「某某同学」对您的商品感兴趣，快来聊聊吧！</view>
+      </view>
+    </view>
+
+    <!-- 平台公告 -->
+    <view class="msg-item">
+      <view class="avatar orange">📢</view>
+      <view class="content">
+        <view class="row">
+          <view class="name">平台公告</view>
+          <view class="time">昨天</view>
+        </view>
+        <view class="desc">平台将于本周六进行维护，届时部分功能将暂停使用。</view>
+      </view>
+    </view>
+
+    <!-- 客服消息 -->
+    <view class="msg-item">
+      <view class="avatar purple">🎧</view>
+      <view class="content">
+        <view class="row">
+          <view class="name">在线客服</view>
+          <view class="time">3天前</view>
+        </view>
+        <view class="desc">您反馈的问题已处理完成，如有其他问题可随时联系我们~</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
