@@ -12,8 +12,8 @@
   margin-right: 20rpx;
 }
 
-.price-input {
-  width: 100rpx;
+.address-input {
+  flex: 1;
   padding: 10rpx;
   background-color: white;
   border-radius: 8rpx;
@@ -29,6 +29,9 @@
   padding: 20rpx;
   border-bottom: 1px solid #eee;
   margin-bottom: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
 }
 
 .goods-img {
@@ -48,10 +51,36 @@
   margin-bottom: 10rpx;
 }
 
-.goods-price {
-  color: #f56c6c;
-  font-size: 36rpx;
+.goods-type {
+  display: inline-block;
+  padding: 4rpx 12rpx;
+  background-color: #ecf5ff;
+  color: #409eff;
+  border-radius: 12rpx;
+  font-size: 24rpx;
   margin-bottom: 10rpx;
+}
+
+.goods-desc {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.goods-address {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 5rpx;
+}
+
+.goods-time {
+  font-size: 24rpx;
+  color: #999;
 }
 
 .publish-btn {
@@ -65,4 +94,5 @@
   background-color: #409EFF;
   color: white;
   font-size: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(64, 158, 255, 0.4);
 }

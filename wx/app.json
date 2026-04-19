@@ -1,13 +1,15 @@
 {
-  "pages": [
+  "pages": ["pages/publish/select",
     "pages/login/login",
     "pages/index/index",
     "pages/mine/mine",
     "pages/second/list",
     "pages/lost/list",
     "pages/lost/publish",
-    "pages/publish/select",
-    "pages/news/list"
+    "pages/news/list",
+    "pages/lostFound/detail/detail",
+    "pages/secondHand/detail/detail",
+    "pages/campusNews/detail/detail"
   ],
   "window": {
     "navigationBarTitleText": "校园服务",
