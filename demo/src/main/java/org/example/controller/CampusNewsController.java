@@ -31,22 +31,4 @@ public class CampusNewsController {
     public Result<String> like(@PathVariable Long id) {
         return campusNewsService.addLike(id);
     }
-
-    @GetMapping("/detail")
-    public Result<CampusNews> detail(@RequestParam Long id) {
-        CampusNews campusNews = campusNewsService.getById(id);
-        if (campusNews == null) {
-            // 当找不到帖子数据时，返回默认数据
-            campusNews = new CampusNews();
-            campusNews.setId(id);
-            campusNews.setTitle("校园动态");
-            campusNews.setContent("这是一条校园动态");
-            campusNews.setType(4);
-            campusNews.setLikeNum(0);
-            campusNews.setStatus(1);
-            campusNews.setCreateTime(java.time.LocalDateTime.now());
-            campusNews.setUpdateTime(java.time.LocalDateTime.now());
-        }
-        return Result.success(campusNews);
-    }
 }

@@ -86,15 +86,6 @@ public class LostFoundServiceImpl extends ServiceImpl<LostFoundMapper, LostFound
     }
 
     @Override
-    public Result<LostFound> getById(Long id) {
-        if (id == null) {
-            return Result.fail("信息ID不能为空");
-        }
-        LostFound lostFound = this.baseMapper.selectById(id);
-        return lostFound != null ? Result.success(lostFound) : Result.fail("信息不存在");
-    }
-
-    @Override
     public Result<String> updateStatus(Long id, Integer status) {
         if (id == null || status == null) return Result.fail("参数不能为空");
         LostFound lf = new LostFound();

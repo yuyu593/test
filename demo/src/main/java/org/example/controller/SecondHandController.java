@@ -50,22 +50,4 @@ public class SecondHandController {
     ) {
         return secondHandService.updateStatus(id, status);
     }
-
-    @GetMapping("/detail")
-    public Result<SecondHand> detail(@RequestParam Long id) {
-        SecondHand secondHand = secondHandService.getById(id);
-        if (secondHand == null) {
-            // 当找不到帖子数据时，返回默认数据
-            secondHand = new SecondHand();
-            secondHand.setId(id);
-            secondHand.setGoodsName("二手商品");
-            secondHand.setPrice(0.0);
-            secondHand.setGoodsDesc("这是一个二手商品");
-            secondHand.setGoodsType("其他");
-            secondHand.setStatus(1);
-            secondHand.setCreateTime(java.time.LocalDateTime.now());
-            secondHand.setUpdateTime(java.time.LocalDateTime.now());
-        }
-        return Result.success(secondHand);
-    }
 }

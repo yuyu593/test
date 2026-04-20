@@ -1,9 +1,0 @@
-<view class="box">
-  <view class="title">校园服务登录</view>
-
-  <input class="input" placeholder="请输入学号" bindinput="setStudentNo" />
-  <input class="input" password placeholder="请输入密码" bindinput="setPwd" />
-
-  <button class="btn login" bindtap="login">登录</button>
-  <button class="btn register" bindtap="register">注册</button>
-</view>
