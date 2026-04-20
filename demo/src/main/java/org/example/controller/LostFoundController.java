@@ -15,11 +15,13 @@ public class LostFoundController {
     @Resource
     private LostFoundService lostFoundService;
 
+    // 发布
     @PostMapping("/publish")
     public Result<String> publish(@RequestBody LostFound lostFound) {
         return lostFoundService.publish(lostFound);
     }
 
+    // 列表（支持类型+地址筛选）
     @GetMapping("/list")
     public Result<List<LostFound>> list(
             @RequestParam(required = false) Integer type,
@@ -28,6 +30,7 @@ public class LostFoundController {
         return lostFoundService.listByCondition(type, address);
     }
 
+    // 修改状态
     @PutMapping("/status")
     public Result<String> updateStatus(
             @RequestParam Long id,
@@ -36,6 +39,7 @@ public class LostFoundController {
         return lostFoundService.updateStatus(id, status);
     }
 
+    // 根据用户ID查询
     @GetMapping("/user/{userId}")
     public Result<List<LostFound>> userList(@PathVariable Long userId) {
         return lostFoundService.listByUserId(userId);

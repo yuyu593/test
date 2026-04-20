@@ -24,6 +24,7 @@ public class SecondHandServiceImpl extends ServiceImpl<SecondHandMapper, SecondH
         return save ? Result.success("发布成功，等待管理员审核") : Result.fail("发布失败");
     }
 
+
     @Override
     public Result<List<SecondHand>> listByCondition(String goodsType, Double minPrice, Double maxPrice, Integer quality) {
         LambdaQueryWrapper<SecondHand> wrapper = new LambdaQueryWrapper<>();
