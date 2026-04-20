@@ -12,7 +12,7 @@
   <!-- 列表 -->
   <scroll-view scroll-y class="list">
     <!-- 求购卡片 -->
-    <view class="card buy-card" wx:if="{{tab === 0 || tab === 1}}">
+    <view class="card buy-card" wx:if="{{tab === 0 || tab === 1}}" bindtap="goToDetail" data-type="buy" data-id="1">
       <view class="card-header">
         <view class="user-info">
           <image class="avatar" src="https://picsum.photos/seed/user1/100/100" />
@@ -31,7 +31,7 @@
     </view>
 
     <!-- 失物招领卡片 -->
-    <view class="card lost-card" wx:if="{{tab === 0 || tab === 2}}">
+    <view class="card lost-card" wx:if="{{tab === 0 || tab === 2}}" bindtap="goToDetail" data-type="lost" data-id="2">
       <view class="card-header">
         <view class="user-info">
           <image class="avatar" src="https://picsum.photos/seed/user2/100/100" />
@@ -52,7 +52,7 @@
     </view>
 
     <!-- 动态卡片 -->
-    <view class="card">
+    <view class="card" bindtap="goToDetail" data-type="post" data-id="3">
       <view class="card-header">
         <view class="user-info">
           <image class="avatar" src="https://picsum.photos/seed/user3/100/100" />
