@@ -1,0 +1,56 @@
+{
+  "pages": ["pages/publish/select",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/second/list",
+    "pages/lost/list",
+    "pages/lost/publish",
+    "pages/news/list",
+    "pages/lostFound/detail/detail",
+    "pages/secondHand/detail/detail",
+    "pages/campusNews/detail/detail"
+  ],
+  "window": {
+    "navigationBarTitleText": "校园服务",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#409eff",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/pages/images/图标/首页.png",
+        "selectedIconPath": "/pages/images/图标/首页点击.png"
+      },
+      {
+        "pagePath": "pages/news/list",
+        "text": "广软动态",
+        "iconPath": "/pages/images/图标/动态.png",
+        "selectedIconPath": "/pages/images/图标/动态点击.png"
+      },
+      {
+        "pagePath": "pages/publish/select",
+        "text": "发布",
+        "iconPath": "/pages/images/图标/发布.png",
+        "selectedIconPath": "/pages/images/图标/发布点击.png"
+      },
+      {
+        "pagePath": "pages/lost/list",
+        "text": "消息",
+        "iconPath": "/pages/images/图标/消息.png",
+        "selectedIconPath": "/pages/images/图标/消息点击.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "/pages/images/图标/我的.png",
+        "selectedIconPath": "/pages/images/图标/我的点击.png"
+      }
+    ]
+  }
+}

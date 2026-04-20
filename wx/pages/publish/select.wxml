@@ -1,0 +1,59 @@
+<view class="container">
+  <!-- 标题 -->
+  <view class="header">
+    <view class="title">你想发布什么数据？</view>
+    <view class="subtitle">今天是 2026年3月22日，分享你的闲置吧</view>
+  </view>
+
+  <!-- 发布选项列表 -->
+  <view class="list">
+    <!-- 选项1：发布闲置物品 -->
+    <view class="item" bindtap="goPublishGoods">
+      <view class="icon blue">🛒</view>
+      <view class="text">
+        <view class="name">发布闲置物品</view>
+        <view class="desc">出掉不用的好物，快速回血</view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <!-- 选项2：发布求购信息 -->
+    <view class="item" bindtap="goPublishBuy">
+      <view class="icon green">🤝</view>
+      <view class="text">
+        <view class="name">发布求购信息</view>
+        <view class="desc">悬赏心仪物品，全校帮你找</view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <!-- 选项3：分享校园动态 -->
+    <view class="item" bindtap="goPublishDynamic">
+      <view class="icon purple">📸</view>
+      <view class="text">
+        <view class="name">分享校园动态</view>
+        <view class="desc">分享日常，交流避坑心得</view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <!-- 选项4：发布失物招领 -->
+    <view class="item" bindtap="goPublishLost">
+      <view class="icon orange">🔍</view>
+      <view class="text">
+        <view class="name">发布失物招领</view>
+        <view class="desc">失主与拾者，传递校园温情</view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="notice">
+    <view>发布内容请遵守《校园二手交易平台管理规范》</view>
+    <view>严禁发布违规物品，所有交易建议面对面完成</view>
+  </view>
+
+  <!-- 关闭按钮 -->
+  <view class="close-btn" bindtap="close">×</view>
+</view>
