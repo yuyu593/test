@@ -2,7 +2,7 @@
   <!-- 标题 -->
   <view class="header">
     <view class="title">你想发布什么数据？</view>
-    <view class="subtitle">今天是 2026年3月22日，分享你的闲置吧</view>
+    <view class="subtitle">今天是 {{currentDate}}，分享你的闲置吧</view>
   </view>
 
   <!-- 发布选项列表 -->

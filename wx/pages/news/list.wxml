@@ -1,73 +1,37 @@
-<view class="page">
-  <!-- 标题 -->
-  <view class="title">广软广场</view>
+<view class="container">
+  <view class="page-title">广软广场</view>
 
-  <!-- 标签栏 -->
-  <view class="tab-bar">
-    <view class="tab {{tab === 0 ? 'active' : ''}}" bindtap="switchTab" data-tab="0">全部</view>
-    <view class="tab {{tab === 1 ? 'active' : ''}}" bindtap="switchTab" data-tab="1">求购中</view>
-    <view class="tab {{tab === 2 ? 'active' : ''}}" bindtap="switchTab" data-tab="2">失物招领</view>
+  <view class="tab-wrap">
+    <view class="tab {{currentTab==''?'active':''}}" bindtap="switchTab" data-type="">全部</view>
+    <view class="tab {{currentTab=='news'?'active':''}}" bindtap="switchTab" data-type="news">校园动态</view>
+    <view class="tab {{currentTab=='lost'?'active':''}}" bindtap="switchTab" data-type="lost">失物招领</view>
+    <view class="tab {{currentTab=='purchase'?'active':''}}" bindtap="switchTab" data-type="purchase">求购中</view>
+    <view class="tab {{currentTab=='second'?'active':''}}" bindtap="switchTab" data-type="second">闲置物品</view>
   </view>
 
-  <!-- 列表 -->
-  <scroll-view scroll-y class="list">
-    <!-- 求购卡片 -->
-    <view class="card buy-card" wx:if="{{tab === 0 || tab === 1}}" bindtap="goToDetail" data-type="buy" data-id="1">
-      <view class="card-header">
-        <view class="user-info">
-          <image class="avatar" src="https://picsum.photos/seed/user1/100/100" />
-          <view class="text">
-            <view class="name">小林同学</view>
-            <view class="time">15分钟前发布</view>
+  <scroll-view scroll-y class="list-box">
+    <view class="item" wx:for="{{list}}" wx:key="uniqueId">
+      <view bindtap="goDetail" data-id="{{item.id}}" data-type="{{item.type}}">
+        <view class="user-row">
+          <image wx:if="{{item.avatar}}" src="{{baseUrl + item.avatar}}" class="avatar"></image>
+          <view wx:else class="avatar-placeholder"></view>
+          <view class="info">
+            <text class="name">{{item.nickname || '匿名用户'}}</text>
+            <text class="time">{{formatTime(item.create_time)}}</text>
           </view>
+          <view class="tag {{item.type}}">{{item.typeTag}}</view>
         </view>
-        <view class="tag buy">求购中</view>
-      </view>
-      <view class="card-content">
-        <view class="content-title">【急需】求购一个二手小冰箱</view>
-        <view class="content-text">宿舍太热了，想收一个功率在60W以下的小冰箱，制冷效果好点，没噪音。价位在200以内可商量。</view>
-        <view class="price">预算: ¥200左右</view>
-      </view>
-    </view>
 
-    <!-- 失物招领卡片 -->
-    <view class="card lost-card" wx:if="{{tab === 0 || tab === 2}}" bindtap="goToDetail" data-type="lost" data-id="2">
-      <view class="card-header">
-        <view class="user-info">
-          <image class="avatar" src="https://picsum.photos/seed/user2/100/100" />
-          <view class="text">
-            <view class="name">志愿者协会</view>
-            <view class="time">1小时前发布</view>
-          </view>
+        <view class="content">
+          <view class="title">{{item.title}}</view>
+          <view class="desc">{{item.content}}</view>
+          <view wx:if="{{item.extraInfo}}" class="extra">{{item.extraInfo}}</view>
         </view>
-        <view class="tag lost">失物招领</view>
-      </view>
-      <view class="card-content lost-content">
-        <image class="lost-img" src="https://picsum.photos/seed/keys/200/200" />
-        <view class="text">
-          <view class="content-title">二教C302拾到一串钥匙</view>
-          <view class="content-text">带有一个皮卡丘挂件和校园卡包，请失主联系后台。或者周一点火台领取。</view>
-        </view>
-      </view>
-    </view>
 
-    <!-- 动态卡片 -->
-    <view class="card" bindtap="goToDetail" data-type="post" data-id="3">
-      <view class="card-header">
-        <view class="user-info">
-          <image class="avatar" src="https://picsum.photos/seed/user3/100/100" />
-          <view class="text">
-            <view class="name">不爱吃香菜</view>
-            <view class="time">大三 · 网络工程</view>
-          </view>
-        </view>
-      </view>
-      <view class="card-content">
-        <view class="content-text">今天在交易平台上遇到个超级好的学弟，由于我搬宿舍不方便带走，他直接上楼帮我搬到楼下，交易非常愉快！祝大学生活顺利呀~</view>
-        <view class="imgs">
-          <image src="https://picsum.photos/seed/post1/150/150" />
-          <image src="https://picsum.photos/seed/post2/150/150" />
-          <image src="https://picsum.photos/seed/post3/150/150" />
+        <view class="img-box" wx:if="{{item.imgList.length > 0}}">
+          <block wx:for="{{item.imgList}}" wx:key="*this">
+            <image src="{{baseUrl + item}}" class="img"></image>
+          </block>
         </view>
       </view>
     </view>

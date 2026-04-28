@@ -2,10 +2,11 @@
   <!-- 顶部蓝色区域 -->
   <view class="header">
     <view class="user-info">
-      <image class="avatar" src="{{user.avatar || 'https://picsum.photos/seed/default/200/200'}}" />
+      <!-- 🔥 修复：头像路径 -->
+      <image class="avatar" src="{{user.avatar ? baseUrl + user.avatar : 'https://picsum.photos/seed/default/200/200'}}" />
       <view class="text">
         <view class="name">
-          {{user.nickName || '张三'}}
+          {{user.nickName || '用户'}}
           <text class="vip-tag">VIP 极速达</text>
         </view>
         <view class="dept">广州软件学院</view>

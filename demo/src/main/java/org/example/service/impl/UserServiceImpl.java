@@ -41,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Result<String> updateUserInfo(User user) {
-        if (user.getId() == null) {
+        if (user.getUserId() == null) {
             return Result.fail("用户ID不能为空");
         }
         boolean update = this.updateById(user);

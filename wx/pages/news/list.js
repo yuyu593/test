@@ -1,53 +1,77 @@
 Page({
   data: {
-    tab: 0 // 0:全部 1:求购中 2:失物招领
+    baseUrl: "http://127.0.0.1:8080/campus/file/",
+    currentTab: "",
+    list: []
   },
+
+  onLoad() {
+    this.getList()
+  },
+
   switchTab(e) {
-    const t = Number(e.currentTarget.dataset.tab)
-    this.setData({ tab: t })
+    const type = e.currentTarget.dataset.type
+    this.setData({
+      currentTab: type,
+      list: []
+    }, () => {
+      this.getList()
+    })
   },
-  // 跳转到详情页面
-  goToDetail(e) {
-    console.log('点击了卡片:', e.currentTarget.dataset);
-    const { type, id } = e.currentTarget.dataset;
-    
-    // 根据类型跳转到不同的详情页面
-    if (type === 'lost') {
-      // 失物招领跳转到失物招领详情页面
-      console.log('跳转到失物招领详情页面，ID:', id);
-      wx.navigateTo({
-        url: `/pages/lostFound/detail/detail?id=${id}`,
-        success: function(res) {
-          console.log('跳转成功:', res);
-        },
-        fail: function(res) {
-          console.log('跳转失败:', res);
-        }
-      });
-    } else if (type === 'second' || type === 'buy') {
-      // 求购信息跳转到二手交易详情页面
-      console.log('跳转到二手交易详情页面，ID:', id);
-      wx.navigateTo({
-        url: `/pages/secondHand/detail/detail?id=${id}`,
-        success: function(res) {
-          console.log('跳转成功:', res);
-        },
-        fail: function(res) {
-          console.log('跳转失败:', res);
-        }
-      });
-    } else if (type === 'post') {
-      // 动态信息跳转到校园资讯详情页面
-      console.log('跳转到校园资讯详情页面，ID:', id);
-      wx.navigateTo({
-        url: `/pages/campusNews/detail/detail?id=${id}`,
-        success: function(res) {
-          console.log('跳转成功:', res);
-        },
-        fail: function(res) {
-          console.log('跳转失败:', res);
-        }
-      });
+
+  goDetail(e) {
+    const id = e.currentTarget.dataset.id;
+    const type = e.currentTarget.dataset.type;
+
+    let url = "";
+    switch (type) {
+      case "news":
+        url = "/pages/news/detail?id=" + id; break;
+      case "lost":
+        url = "/pages/lost/detail?id=" + id; break;
+      case "purchase":
+        url = "/pages/purchase/detail?id=" + id; break;
+      case "second":
+        url = "/pages/second/detail?id=" + id; break;
+      default:
+        url = "/pages/second/detail?id=" + id;
     }
+    wx.navigateTo({ url });
+  },
+
+  getList() {
+    wx.showLoading({ title: '加载中...' })
+    wx.request({
+      url: "http://127.0.0.1:8080/campus/square/list",
+      method: "GET",
+      data: { type: this.data.currentTab },
+      success: (res) => {
+        if (res.data.code === 200) {
+          const list = res.data.data.map((item, index) => {
+            item.uniqueId = "item_" + index;
+            let imgList = [];
+            if (item.img_urls) {
+              imgList = item.img_urls.split(",").map(i => i.trim()).filter(i => i);
+            }
+            item.imgList = imgList;
+            return item;
+          });
+          this.setData({ list });
+        }
+      },
+      complete: () => {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  formatTime(timeStr) {
+    if (!timeStr) return ""
+    const now = new Date()
+    const time = new Date(timeStr)
+    const diff = (now - time) / 1000 / 60
+    if (diff < 60) return Math.floor(diff) + "分钟前"
+    if (diff < 1440) return Math.floor(diff / 60) + "小时前"
+    return Math.floor(diff / 1440) + "天前"
   }
 })
