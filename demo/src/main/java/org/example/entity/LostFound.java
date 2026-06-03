@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 @Data
 @TableName("lost_found")
 public class LostFound {
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    @TableId(value = "lost_id", type = IdType.AUTO)
+    private Long lostId;
     private Long userId;
     private Integer type; // 1寻物 2拾物
     private String goodsName;
