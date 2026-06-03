@@ -52,7 +52,7 @@ public class SecondHandServiceImpl extends ServiceImpl<SecondHandMapper, SecondH
             return Result.fail("物品ID和状态不能为空");
         }
         SecondHand secondHand = new SecondHand();
-        secondHand.setId(id);
+        secondHand.setSecondId(id);
         secondHand.setStatus(status);
         boolean update = this.updateById(secondHand);
         return update ? Result.success("状态修改成功") : Result.fail("状态修改失败");

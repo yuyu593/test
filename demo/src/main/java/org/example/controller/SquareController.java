@@ -2,11 +2,7 @@ package org.example.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.example.common.Result;
-import org.example.entity.CampusNews;
-import org.example.entity.LostFound;
-import org.example.entity.PurchaseInfo;
-import org.example.entity.SecondHand;
-import org.example.entity.User;
+import org.example.entity.*;
 import org.example.service.CampusNewsService;
 import org.example.service.LostFoundService;
 import org.example.service.PurchaseInfoService;

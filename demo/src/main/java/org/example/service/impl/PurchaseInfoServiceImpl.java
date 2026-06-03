@@ -50,7 +50,7 @@ public class PurchaseInfoServiceImpl extends ServiceImpl<PurchaseInfoMapper, Pur
             return Result.fail("求购ID和状态不能为空");
         }
         PurchaseInfo purchaseInfo = new PurchaseInfo();
-        purchaseInfo.setId(id);
+        purchaseInfo.setPurchaseId(id);
         purchaseInfo.setStatus(status);
         boolean update = this.updateById(purchaseInfo);
         return update ? Result.success("状态修改成功") : Result.fail("状态修改失败");

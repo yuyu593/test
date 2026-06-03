@@ -89,7 +89,7 @@ public class LostFoundServiceImpl extends ServiceImpl<LostFoundMapper, LostFound
     public Result<String> updateStatus(Long id, Integer status) {
         if (id == null || status == null) return Result.fail("参数不能为空");
         LostFound lf = new LostFound();
-        lf.setId(id);
+        lf.setLostId(id);
         lf.setStatus(status);
         return updateById(lf) ? Result.success("修改成功") : Result.fail("修改失败");
     }

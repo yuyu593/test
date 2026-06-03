@@ -41,7 +41,7 @@ public class CampusNewsServiceImpl extends ServiceImpl<CampusNewsMapper, CampusN
             return Result.fail("资讯ID和状态不能为空");
         }
         CampusNews campusNews = new CampusNews();
-        campusNews.setId(id);
+        campusNews.setNewsId(id);
         campusNews.setStatus(status);
         boolean update = this.updateById(campusNews);
         return update ? Result.success("状态修改成功") : Result.fail("状态修改失败");
