@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-box" wx:if="{{detail}}">
+    <image wx:if="{{detail.avatar}}" src="{{baseUrl + detail.avatar}}" class="avatar"></image>
+    <view class="user-info">
+      <text class="nickname">{{detail.nickname}}</text>
+      <text class="create-time">{{formatTime(detail.happenTime)}}</text>
+    </view>
+  </view>
+
+  <!-- 物品图片 -->
+  <view class="img-wrap" wx:if="{{detail.img_urls}}">
+      <image src="{{baseUrl + detail.img_urls}}" mode="aspectFill" class="goods-img"></image>
+  </view>
+
+  <!-- 物品信息卡片 -->
+  <view class="goods-info">
+    <!-- 标题+爱心收藏 -->
+    <view class="title-wrap">
+      <view class="goods-title">{{detail.goodsName}}</view>
+      <view class="heart-btn {{isCollected ? 'collected' : ''}}" bindtap="toggleCollect">
+        {{isCollected ? '♥' : '♡'}}
+      </view>
+    </view>
+
+    <view class="attr-row">
+      <text class="attr-label">类型</text>
+      <text class="attr-text">{{detail.type === 1 ? '失物' : '招领'}}</text>
+    </view>
+    <view class="attr-row">
+      <text class="attr-label">地点</text>
+      <text class="attr-text">{{detail.address}}</text>
+    </view>
+
+    <view class="desc-wrap">
+      <view class="desc-title">物品描述</view>
+      <view class="desc-content">{{detail.goodsDesc}}</view>
+    </view>
+  </view>
+
+  <!-- 评论区 -->
+  <view class="comment-wrap">
+    <view class="comment-title">全部评论</view>
+    <view class="comment-item" wx:for="{{commentList}}" wx:key="index">
+      <image class="avatar" src="{{item.avatar}}"></image>
+      <view class="comment-right">
+        <view class="name">{{item.nickname}}</view>
+        <view class="content">{{item.content}}</view>
+        <view class="time">{{formatTime(item.createTime)}}</view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{commentList.length == 0}}">暂无评论，快来抢沙发~</view>
+  </view>
+
+  <!-- 评论输入框 -->
+  <view class="comment-input-wrap">
+    <input class="input" placeholder="说点什么..." bindinput="onInputComment" value="{{commentContent}}"/>
+    <button class="submit-btn" bindtap="submitComment">发布</button>
+  </view>
+</view>

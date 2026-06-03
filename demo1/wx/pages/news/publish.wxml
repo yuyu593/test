@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="title">校园动态发布</view>
+  <view class="form-item">
+    <text class="label">动态标题</text>
+    <input class="input" placeholder="请输入动态标题" bindinput="onTitleInput" value="{{form.title}}" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">动态分类</text>
+    <picker range="{{categoryList}}" bindchange="onCategoryChange">
+      <view class="card-picker">
+        <text class="picker-text">{{form.category || '请选择分类'}}</text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">发布图片</text>
+    <view class="upload-area" bindtap="chooseImage">
+      <block wx:if="{{form.imgUrls.length > 0}}">
+        <image class="preview-img" src="{{item}}" wx:for="{{form.imgUrls}}" wx:key="*this" />
+      </block>
+      <view class="add-btn" wx:else>
+        <text class="plus-icon">+</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-item">
+    <text class="label">动态内容</text>
+    <textarea class="textarea" placeholder="限制300字" maxlength="300" bindinput="onContentInput" value="{{form.content}}"></textarea>
+  </view>
+
+  <view class="form-item">
+    <text class="label">动态标签</text>
+    <view class="tags">
+      <text class="tag {{form.tag === item ? 'active' : ''}}" wx:for="{{tagList}}" wx:key="*this" bindtap="selectTag" data-tag="{{item}}">
+        {{item}}
+      </text>
+    </view>
+  </view>
+
+  <button class="submit-btn" bindtap="submit">发布</button>
+</view>

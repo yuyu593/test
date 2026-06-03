@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="collect-list" wx:if="{{collectList.length > 0}}">
+    <view class="collect-item" 
+          wx:for="{{collectList}}" 
+          wx:key="collectId"
+          bindtap="goDetail" 
+          data-type="{{item.targetType}}" 
+          data-id="{{item.targetId}}">
+      <view class="item-left">
+        <view class="item-name">{{item.title}}</view>
+        <view class="item-desc">{{item.content}}</view>
+        <view class="item-time">收藏时间：{{item.collectTime}}</view>
+      </view>
+      <view class="item-tag">
+        <text wx:if="{{item.targetType === 1}}" class="tag-tag1">闲置</text>
+        <text wx:elif="{{item.targetType === 2}}" class="tag-tag2">求购</text>
+        <text wx:elif="{{item.targetType === 3}}" class="tag-tag3">动态</text>
+        <text wx:elif="{{item.targetType === 4}}" class="tag-tag4">失物</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <text>暂无收藏内容</text>
+  </view>
+</view>
