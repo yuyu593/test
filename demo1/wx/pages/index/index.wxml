@@ -1,0 +1,72 @@
+<view class="page">
+  <!-- 顶部定位+搜索栏 -->
+  <view class="top-bar">
+    <view class="location">
+      <text class="loc-icon">📍</text>
+      <text class="loc-text">广州校区</text>
+    </view>
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input 
+        placeholder="搜索你想要的商品" 
+        bindinput="onSearchInput"
+        bindconfirm="doSearch"
+        value="{{searchKey}}"
+      />
+      <button wx:if="{{searchKey}}" bindtap="clearSearch" class="clear-btn">×</button>
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <swiper class="banner" indicator-dots autoplay circular>
+    <swiper-item>
+      <image src="https://picsum.photos/seed/campus/750/300" mode="widthFix"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="https://picsum.photos/seed/school/750/300" mode="widthFix"></image>
+    </swiper-item>
+  </swiper> 
+
+  <!-- 分类图标区 -->
+  <view class="category-grid">
+    <view class="category-item" wx:for="{{categories}}" wx:key="index">
+      <view class="icon {{item.color}}">{{item.icon}}</view>
+      <text class="name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view wx:if="{{searchKey}}" class="result-section">
+    <view class="section-title">搜索结果</view>
+    <view class="goods-card" wx:for="{{searchResult}}" wx:key="*this" bindtap="goDetail" data-id="{{item.secondId}}">
+      <image src="{{baseUrl + item.imgUrls}}" mode="aspectFill"></image>
+      <view class="info">
+        <view class="goods-name">{{item.goodsName}}</view>
+        <view class="price">¥{{item.price}}</view>
+        <view class="type">{{item.goodsType}}</view>
+      </view>
+    </view>
+    <view wx:if="{{searchResult.length === 0}}" class="empty">暂无相关商品</view>
+  </view>
+
+  <!-- 猜你喜欢 -->
+  <view wx:else>
+    <view class="section-header">
+      <view>
+        <text class="title">猜你喜欢</text>
+        <text class="desc">实时更新</text>
+      </view>
+      <text class="more" bindtap="goList">查看更多</text>
+    </view>
+    <view class="goods-grid">
+      <view class="goods-card" wx:for="{{recommendGoods}}" wx:key="*this" bindtap="goDetail" data-id="{{item.secondId}}">
+        <image src="{{baseUrl + item.imgUrls}}" mode="aspectFill"></image>
+        <view class="info">
+          <view class="goods-name">{{item.goodsName}}</view>
+          <view class="price">¥{{item.price}}</view>
+          <view class="type">{{item.goodsType}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

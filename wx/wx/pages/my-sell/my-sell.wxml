@@ -1,0 +1,16 @@
+<view class="container">
+  <view wx:if="{{sellList.length>0}}">
+    <view class="item-box" wx:for="{{sellList}}" wx:key="secondId" bindtap="goDetail" data-id="{{item.secondId}}">
+      <view class="item-left">
+        <view class="title">{{item.goodsName}}</view>
+        <view class="desc">{{item.goodsDesc}}</view>
+        <view class="time">发布时间：{{item.createTime}}</view>
+      </view>
+      <view>
+        <view class="tag-xian" wx:if="{{item.status===0}}">闲置</view>
+        <view class="tag-out" wx:if="{{item.status===1}}">已售出</view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="empty">暂无卖出商品</view>
+</view>
