@@ -1,0 +1,90 @@
+page {
+  background: linear-gradient(180deg, #e7f2ff 0%, #f8fbff 100%);
+  min-height: 100vh;
+}
+.container {
+  padding: 30rpx;
+  padding-bottom: 120rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #223355;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.history-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.item-left {
+  flex: 1;
+}
+.item-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #223355;
+  margin-bottom: 10rpx;
+}
+.item-desc {
+  font-size: 26rpx;
+  color: #6b7896;
+  line-height: 1.5;
+  margin-bottom: 10rpx;
+}
+.item-time {
+  font-size: 24rpx;
+  color: #99a3b5;
+}
+
+.item-tag {
+  font-size: 24rpx;
+  border-radius: 30rpx;
+  padding: 8rpx 16rpx;
+}
+/* 标签颜色，和收藏页保持一致 */
+.tag-idle {
+  background: #e0ebff;
+  color: #409eff;
+}
+.tag-wanted {
+  background: #fff7e0;
+  color: #ffb040;
+}
+.tag-dynamic {
+  background: #f3e8ff;
+  color: #a066ff;
+}
+.tag-lost {
+  background: #ffe9e0;
+  color: #ff8060;
+}
+
+.empty {
+  text-align: center;
+  margin-top: 150rpx;
+  font-size: 28rpx;
+  color: #99a3b5;
+}
+.clear-btn {
+  position: fixed;
+  bottom: 40rpx;
+  left: 30rpx;
+  right: 30rpx;
+  margin: 30px;
+  color: #f56c6c;
+  border: 1rpx solid #f56c6c;
+  border-radius: 10rpx;
+  z-index: 9;
+}

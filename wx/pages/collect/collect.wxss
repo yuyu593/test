@@ -1,0 +1,78 @@
+page {
+  background: linear-gradient(180deg, #e7f2ff 0%, #f8fbff 100%);
+  min-height: 100vh;
+}
+.container {
+  padding: 30rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #223355;
+}
+
+.collect-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.collect-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.item-left {
+  flex: 1;
+}
+.item-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #223355;
+  margin-bottom: 10rpx;
+}
+.item-desc {
+  font-size: 26rpx;
+  color: #6b7896;
+  line-height: 1.5;
+  margin-bottom: 10rpx;
+}
+.item-time {
+  font-size: 24rpx;
+  color: #99a3b5;
+}
+
+/* 不同类型的标签颜色 */
+.tag-tag1 {
+  padding: 8rpx 16rpx;
+  background: #f3fee9;
+  color: #52c41a;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+}
+.tag-tag2 {
+  background: #e6f7ff;
+  color: #1890ff;
+  padding: 8rpx 16rpx;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+}
+.tag-tag3 {
+  background: #f3e8ff;
+  color: #722ed1;
+  padding: 8rpx 16rpx;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+}
+.tag-tag4 {
+  background: #fff7e6;
+  color: #fa8c16;
+  padding: 8rpx 16rpx;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+}
