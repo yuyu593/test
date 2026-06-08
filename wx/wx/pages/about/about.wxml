@@ -1,0 +1,68 @@
+<!-- pages/about/about.wxml -->
+<view class="container">
+  <!-- 平台头部信息 -->
+  <view class="header">
+    <view class="logo-box">
+      <text class="logo-icon">🏫</text>
+    </view>
+    <view class="platform-name">校园服务平台</view>
+    <view class="version">版本号：v1.0.0</view>
+  </view>
+
+  <!-- 平台介绍卡片 -->
+  <view class="card">
+    <view class="card-title">平台介绍</view>
+    <view class="card-content">
+      校园服务平台是专为广州软件学院打造的二手交易与信息服务平台，旨在为同学们提供安全、便捷、高效的校内物品交易、资源共享服务。
+    </view>
+  </view>
+
+  <!-- 核心功能卡片 -->
+  <view class="card">
+    <view class="card-title">核心功能</view>
+    <view class="feature-grid">
+      <view class="feature-item">
+        <view class="icon-box blue">
+          <text class="icon-text">🛒</text>
+        </view>
+        <text class="feature-text">二手物品交易</text>
+      </view>
+      <view class="feature-item">
+        <view class="icon-box green">
+          <text class="icon-text">🔄</text>
+        </view>
+        <text class="feature-text">闲置资源共享</text>
+      </view>
+      <view class="feature-item">
+        <view class="icon-box orange">
+          <text class="icon-text">💬</text>
+        </view>
+        <text class="feature-text">校内消息沟通</text>
+      </view>
+      <view class="feature-item">
+        <view class="icon-box purple">
+          <text class="icon-text">✅</text>
+        </view>
+        <text class="feature-text">实名认证保障</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开发者信息卡片 -->
+  <view class="card">
+    <view class="card-title">开发者信息</view>
+    <view class="info-row">
+      <text class="label">开发团队：</text>
+      <text class="value">吴静静 陈晓欣 钟雅惠 徐悦 彭可慧</text>
+    </view>
+    <view class="info-row">
+      <text class="label">联系邮箱：</text>
+      <text class="value">service@gsru.edu.cn</text>
+    </view>
+  </view>
+
+  <!-- 版权信息 -->
+  <view class="copyright">
+    © 2026 校园服务平台 版权所有
+  </view>
+</view>
