@@ -19,8 +19,6 @@
     "pages/my-sell/my-sell",
     "pages/my-buy/my-buy",
     "pages/collect/collect",
-    "pages/history/history",
-    "pages/about/about"
   ],
   "window": {
     "navigationBarTitleText": "校园服务",
