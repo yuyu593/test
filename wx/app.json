@@ -14,7 +14,13 @@
     "pages/news/publish",
     "pages/purchase/publish",
     "pages/purchase/detail",
-    "pages/publish/select"
+    "pages/publish/select",
+    "pages/my-published/my-published",
+    "pages/my-sell/my-sell",
+    "pages/my-buy/my-buy",
+    "pages/collect/collect",
+    "pages/history/history",
+    "pages/about/about"
   ],
   "window": {
     "navigationBarTitleText": "校园服务",

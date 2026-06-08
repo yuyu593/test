@@ -14,7 +14,7 @@ Page({
     this.setData({ pwd: e.detail.value })
   },
 
-  // 登录（修复版）
+  // 登录
   async login() {
     const { studentNo, pwd } = this.data
     if (!studentNo || !pwd) {

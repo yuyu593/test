@@ -59,7 +59,7 @@ Page({
     console.log('当前用户信息：', user)
 
     const { title, type, content, imgUrls } = this.data.form
-    if (!user || !user.id) {
+    if (!user || !user.userId) {
       wx.showToast({ title: '请先登录', icon: 'none' })
       return
     }
@@ -102,7 +102,7 @@ Page({
       }
 
       const res = await post('/news/publish', {
-        publishId: user.id,
+        publishId: user.userId,
         type: type,
         title: title,
         content: content,

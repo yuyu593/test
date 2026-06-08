@@ -10,7 +10,7 @@
 
   <!-- 物品图片 -->
   <view class="img-wrap" wx:if="{{detail.img_urls}}">
-      <image src="{{baseUrl + detail.img_urls}}" mode="aspectFill" class="goods-img"></image>
+    <image src="{{baseUrl + detail.img_urls}}" mode="widthFix" class="goods-img"></image>
   </view>
 
   <!-- 物品信息卡片 -->

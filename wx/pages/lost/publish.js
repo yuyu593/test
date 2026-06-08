@@ -52,7 +52,7 @@ Page({
     const user = getApp().globalData.userInfo
     const { goodsName, type, address, phone, description, imgUrl } = this.data.form
 
-    if (!user || !user.id) {
+    if (!user || !user.userId) {
       wx.showToast({ title: '请先登录', icon: 'none' })
       return
     }
@@ -100,7 +100,7 @@ Page({
       }
 
       await post('/lost/publish', {
-        userId: user.id,
+        userId: user.userId,
         type: type,
         goodsName: goodsName,
         address: address,

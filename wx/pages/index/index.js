@@ -2,6 +2,7 @@ const { get } = require('../../utils/request')
 
 Page({
   data: {
+    baseUrl: "http://127.0.0.1:8080/campus/file/",
     categories: [
       { icon: '📱', name: '数码配件', color: 'blue' },
       { icon: '🚲', name: '代步工具', color: 'green' },
@@ -26,19 +27,19 @@ Page({
     this.loadRecommend()
   },
 
-  // 加载推荐商品
   async loadRecommend() {
-    const list = await get('/second/list')
-    // 适配商品标签
-    const goods = list.slice(0, 4).map((item, i) => ({
-      ...item,
-      quality: i % 2 === 0 ? '极品' : '99新',
-      seller: i % 2 === 0 ? '大二学长' : '大四学姐'
-    }))
-    this.setData({ recommendGoods: goods })
+    try {
+      const list = await get('/second/list')
+      console.log("商品列表：", list)
+      this.setData({
+        recommendGoods: list || []
+      })
+    } catch (e) {
+      console.log("加载失败", e)
+      this.setData({ recommendGoods: [] })
+    }
   },
 
-  // 搜索输入事件
   onSearchInput(e) {
     const key = e.detail.value.trim()
     this.setData({ searchKey: key })
@@ -49,29 +50,41 @@ Page({
     this.doSearch()
   },
 
-  // 执行搜索
   async doSearch() {
     const key = this.data.searchKey
     try {
       const list = await get('/second/search', { keyword: key })
-      const goods = list.map((item, i) => ({
-        ...item,
-        quality: '全新',
-        seller: '校园用户'
-      }))
-      this.setData({ searchResult: goods })
+      this.setData({
+        searchResult: list || []
+      })
     } catch (e) {
       this.setData({ searchResult: [] })
     }
   },
 
-  // 清空搜索
   clearSearch() {
     this.setData({ searchKey: '', searchResult: [] })
   },
 
-  // 跳转到全部商品页
+  // ✅ 查看更多：只跳转到广场页的闲置物品标签
   goList() {
-    wx.switchTab({ url: '/pages/second/list' })
+    wx.switchTab({
+      url: "/pages/news/list?from=index&type=second"
+    })
+  },
+
+  // ✅ 点击商品：跳详情页（完全正常）
+  goDetail(e) {
+    const id = e.currentTarget.dataset.id
+    console.log("✅ 正确商品ID =", id)
+
+    if (!id) {
+      wx.showToast({ title: 'ID不存在', icon: 'none' })
+      return
+    }
+
+    wx.navigateTo({
+      url: "/pages/second/detail?id=" + id
+    })
   }
 })
