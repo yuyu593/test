@@ -1,0 +1,50 @@
+<view class="container">
+  <view class="page-title">求购信息发布</view>
+
+  <!-- 物品名称 -->
+  <view class="form-item">
+    <text class="label">求购物品名称</text>
+    <input class="input" placeholder="请输入物品名称" bindinput="onTitleInput" value="{{form.title}}" />
+  </view>
+
+  <!-- 预算 -->
+  <view class="form-item">
+    <text class="label">预算</text>
+    <input class="input" type="digit" placeholder="请输入预算价格" bindinput="onPriceInput" value="{{form.price}}" />
+  </view>
+
+  <!-- 分类 -->
+  <view class="form-item">
+    <text class="label">分类</text>
+    <picker range="{{categoryList}}" bindchange="onCategoryChange">
+      <view class="picker">
+        {{form.category || '请选择分类'}}
+        <text class="arrow">></text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="form-item">
+    <text class="label">联系方式</text>
+    <input class="input" placeholder="请输入微信/手机号" bindinput="onContactInput" value="{{form.contact}}" />
+  </view>
+
+  <!-- 物品描述 -->
+  <view class="form-item">
+    <text class="label">物品描述</text>
+    <textarea class="textarea" placeholder="限制300字" maxlength="300" bindinput="onContentInput" value="{{form.content}}"></textarea>
+  </view>
+
+  <!-- 是否急需 -->
+  <view class="form-item flex-row">
+    <text class="label">是否急需</text>
+    <view class="switch-group">
+      <text class="switch {{form.isUrgent === 1 ? 'active' : ''}}" bindtap="setUrgent" data-status="1">是</text>
+      <text class="switch {{form.isUrgent === 0 ? 'active' : ''}}" bindtap="setUrgent" data-status="0">否</text>
+    </view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <button class="submit-btn" bindtap="submitPurchase">发布</button>
+</view>

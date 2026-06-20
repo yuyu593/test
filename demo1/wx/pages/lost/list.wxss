@@ -1,0 +1,68 @@
+page {
+  background: #f5f7fa;
+}
+.page {
+  padding: 30rpx;
+}
+
+/* 顶部标题 */
+.header {
+  padding: 20rpx 0 30rpx;
+}
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 消息列表 */
+.list {
+  height: calc(100vh - 150rpx);
+}
+.msg-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+.avatar.blue { background: #e0ebff; color: #409eff; }
+.avatar.green { background: #e8f8ee; color: #36d399; }
+.avatar.orange { background: #fff3e6; color: #ff9800; }
+.avatar.purple { background: #f5ebff; color: #b37feb; }
+.content {
+  flex: 1;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.name {
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+.desc {
+  font-size: 26rpx;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

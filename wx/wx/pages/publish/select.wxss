@@ -1,0 +1,106 @@
+page {
+  background: linear-gradient(180deg, #e7f2ff 0%, #f8fbff 100%);
+  min-height: 100vh;
+}
+.container {
+  padding: 80rpx 40rpx;
+}
+
+/* 标题区域 */
+.header {
+  text-align: center;
+  margin-bottom: 80rpx;
+}
+.title {
+  font-size: 46rpx;
+  font-weight: 800;
+  color: #223355;
+  margin-bottom: 20rpx;
+  letter-spacing: 1rpx;
+}
+.subtitle {
+  font-size: 28rpx;
+  color: #6b7896;
+}
+
+/* 选项列表 */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+}
+.item {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 28rpx;
+  padding: 36rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+}
+.item:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+.icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 28rpx;
+}
+.icon.blue { background: #e0ebff; color: #409eff; }
+.icon.green { background: #e8f8ee; color: #36d399; }
+.icon.purple { background: #f5ebff; color: #b37feb; }
+.icon.orange { background: #fff3e6; color: #ff9800; }
+.text {
+  flex: 1;
+}
+.name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8rpx;
+}
+.desc {
+  font-size: 26rpx;
+  color: #6b7896;
+}
+.arrow {
+  font-size: 32rpx;
+  color: #b0b7c3;
+}
+
+/* 底部提示 */
+.notice {
+  margin-top: 80rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #99a3b5;
+  line-height: 1.6;
+}
+
+/* 关闭按钮 */
+.close-btn {
+  position: fixed;
+  bottom: 60rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88rpx;
+  height: 88rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 8rpx 22rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38rpx;
+  color: #555;
+  transition: all 0.2s;
+}
+.close-btn:active {
+  transform: translateX(-50%) scale(0.95);
+}

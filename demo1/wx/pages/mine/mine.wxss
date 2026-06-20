@@ -1,0 +1,144 @@
+page {
+  background: #f5f7fa;
+}
+.page {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* 顶部蓝色区域 */
+.header {
+  background: linear-gradient(135deg, #409eff, #2979ff);
+  color: white;
+  padding: 80rpx 40rpx 100rpx;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  position: relative;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+}
+.name {
+  font-size: 36rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.vip-tag {
+  background: #ffd040;
+  color: #333;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  margin-left: 16rpx;
+}
+.dept {
+  font-size: 26rpx;
+  opacity: 0.9;
+  margin-top: 8rpx;
+}
+.settings-icon {
+  position: absolute;
+  top: 80rpx;
+  right: 40rpx;
+  font-size: 36rpx;
+}
+
+/* 信用分卡片 */
+.credit-card {
+  background: rgba(255,255,255,0.2);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-top: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.left {
+  display: flex;
+  align-items: center;
+}
+.shield-icon {
+  margin-right: 12rpx;
+}
+.score {
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+/* 数据统计 */
+.stats {
+  display: flex;
+  background: white;
+  margin: 0 40rpx 30rpx;
+  border-radius: 0;
+  padding: 30rpx 0;
+}
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+.num {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+.label {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+
+/* 功能菜单 */
+.menu {
+  background: white;
+  margin: 0 40rpx 30rpx;
+  border-radius: 16rpx;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.menu-item:last-child {
+  border-bottom: none;
+}
+.icon {
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+.icon.blue { color: #409eff; }
+.icon.green { color: #36d399; }
+.icon.orange { color: #ff9800; }
+.icon.purple { color: #b37feb; }
+.name {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+}
+.status {
+  font-size: 26rpx;
+  color: #36d399;
+  margin-right: 12rpx;
+}
+.arrow {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 退出登录按钮 */
+.logout-btn {
+  margin: 0 40rpx 60rpx;
+  background: white;
+  color: #f56c6c;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  font-size: 30rpx;
+}

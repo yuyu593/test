@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="page-title">广软广场</view>
+
+  <view class="tab-wrap">
+    <view class="tab {{currentTab==''?'active':''}}" bindtap="switchTab" data-type="">全部</view>
+    <view class="tab {{currentTab=='news'?'active':''}}" bindtap="switchTab" data-type="news">校园动态</view>
+    <view class="tab {{currentTab=='lost'?'active':''}}" bindtap="switchTab" data-type="lost">失物招领</view>
+    <view class="tab {{currentTab=='purchase'?'active':''}}" bindtap="switchTab" data-type="purchase">求购中</view>
+    <view class="tab {{currentTab=='second'?'active':''}}" bindtap="switchTab" data-type="second">闲置物品</view>
+  </view>
+
+  <scroll-view scroll-y class="list-box">
+    <view class="item" wx:for="{{list}}" wx:key="uniqueId">
+      <view bindtap="goDetail" data-id="{{item.id}}" data-type="{{item.type}}">
+        <view class="user-row">
+          <image wx:if="{{item.avatar}}" src="{{baseUrl + item.avatar}}" class="avatar"></image>
+          <view wx:else class="avatar-placeholder"></view>
+          <view class="info">
+            <text class="name">{{item.nickname || '匿名用户'}}</text>
+            <text class="time">{{formatTime(item.create_time)}}</text>
+          </view>
+          <view class="tag {{item.type}}">{{item.typeTag}}</view>
+        </view>
+
+        <view class="content">
+          <view class="title">{{item.title}}</view>
+          <view class="desc">{{item.content}}</view>
+          <view wx:if="{{item.extraInfo}}" class="extra">{{item.extraInfo}}</view>
+        </view>
+
+        <view class="img-box" wx:if="{{item.imgList.length > 0}}">
+          <block wx:for="{{item.imgList}}" wx:key="*this">
+            <image src="{{baseUrl + item}}" class="img"></image>
+          </block>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
