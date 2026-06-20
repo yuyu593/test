@@ -1,138 +1,381 @@
-/*
- Navicat Premium Data Transfer
+-- ============================================================
+--  校园服务平台 - 完整数据库初始化脚本（建表 + 数据）
+--  数据库：campus_service
+--  执行方式：在数据库客户端（Navicat/IDEA/DBeaver）中全选执行
+--  注意：可重复执行，已做重复键跳过处理
+-- ============================================================
 
- Source Server         : localhost_3306
- Source Server Type    : MySQL
- Source Server Version : 80021
- Source Host           : localhost:3306
- Source Schema         : campus_service
+-- 如果数据库不存在则创建
+CREATE DATABASE IF NOT EXISTS campus_service DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE campus_service;
 
- Target Server Type    : MySQL
- Target Server Version : 80021
- File Encoding         : 65001
-
- Date: 25/03/2026 15:55:55
-*/
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for campus_news
--- ----------------------------
-DROP TABLE IF EXISTS `campus_news`;
-CREATE TABLE `campus_news`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `publish_id` bigint NOT NULL COMMENT '发布者ID（0-管理员 其他-普通用户）',
-  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '资讯标题',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '资讯内容',
-  `img_urls` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '资讯图片URL（多个用逗号分隔）',
-  `type` int NULL DEFAULT 1 COMMENT '类型（1-校园通知 2-社团活动 3-生活贴士 4-校友动态）',
-  `like_num` int NULL DEFAULT 0 COMMENT '点赞数',
-  `status` int NULL DEFAULT 0 COMMENT '状态（0-待审核 1-已发布 2-已下架）',
-  `is_deleted` int NULL DEFAULT 0 COMMENT '逻辑删除：0-未删 1-已删',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_publish_id`(`publish_id` ASC) USING BTREE COMMENT '发布者ID索引',
-  INDEX `idx_type`(`type` ASC) USING BTREE COMMENT '类型索引',
-  INDEX `idx_status`(`status` ASC) USING BTREE COMMENT '状态索引',
-  INDEX `idx_create_time`(`create_time` ASC) USING BTREE COMMENT '创建时间索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '校园资讯表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of campus_news
--- ----------------------------
-INSERT INTO `campus_news` VALUES (1, 0, '春季运动会报名通知', '4月10日-20日可报名，地点操场', '', 1, 0, 1, 0, '2026-03-23 14:53:20', '2026-03-23 14:53:20');
-INSERT INTO `campus_news` VALUES (2, 1, '社团招新啦', '计算机社团招新，每周五晚活动', '', 2, 0, 1, 0, '2026-03-23 14:53:20', '2026-03-23 14:53:20');
-
--- ----------------------------
--- Table structure for lost_found
--- ----------------------------
-DROP TABLE IF EXISTS `lost_found`;
-CREATE TABLE `lost_found`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `user_id` bigint NOT NULL COMMENT '发布用户ID（关联user.id）',
-  `type` int NOT NULL COMMENT '类型（1-寻物 2-拾物）',
-  `goods_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '物品名称',
-  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '丢失/拾取地点',
-  `happen_time` datetime NULL DEFAULT NULL COMMENT '丢失/拾取时间',
-  `goods_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '物品描述',
-  `img_urls` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '物品图片URL（多个用逗号分隔）',
-  `status` int NULL DEFAULT 0 COMMENT '状态（0-待审核 1-已发布 2-已找回/认领 3-已下架）',
-  `is_deleted` int NULL DEFAULT 0 COMMENT '逻辑删除：0-未删 1-已删',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '用户ID索引',
-  INDEX `idx_type`(`type` ASC) USING BTREE COMMENT '类型索引',
-  INDEX `idx_status`(`status` ASC) USING BTREE COMMENT '状态索引',
-  INDEX `idx_create_time`(`create_time` ASC) USING BTREE COMMENT '创建时间索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '失物招领信息表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of lost_found
--- ----------------------------
-INSERT INTO `lost_found` VALUES (1, 1, 1, '校园卡', '图书馆3楼', '2026-03-20 14:00:00', '卡号2023001，姓名张三', '', 1, 0, '2026-03-23 14:53:18', '2026-03-23 14:53:18');
-INSERT INTO `lost_found` VALUES (2, 2, 2, '保温杯', '食堂2楼', '2026-03-21 12:00:00', '白色，带小熊图案', '', 1, 0, '2026-03-23 14:53:18', '2026-03-23 14:53:18');
-
--- ----------------------------
--- Table structure for second_hand
--- ----------------------------
-DROP TABLE IF EXISTS `second_hand`;
-CREATE TABLE `second_hand`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `user_id` bigint NOT NULL COMMENT '发布用户ID（关联user.id）',
-  `goods_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '物品名称',
-  `goods_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '物品分类（如：数码配件、代步工具）',
-  `quality` int NULL DEFAULT 5 COMMENT '物品成色（1-全新 2-99新 3-9成新 4-8成新 5-一般 6-较差）',
-  `price` decimal(10, 2) NOT NULL COMMENT '物品价格',
-  `goods_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '物品描述',
-  `img_urls` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '物品图片URL（多个用逗号分隔）',
-  `trade_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '交易地点',
-  `status` int NULL DEFAULT 0 COMMENT '状态（0-待审核 1-已发布 2-已交易 3-已下架）',
-  `is_deleted` int NULL DEFAULT 0 COMMENT '逻辑删除：0-未删 1-已删',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '用户ID索引',
-  INDEX `idx_status`(`status` ASC) USING BTREE COMMENT '状态索引',
-  INDEX `idx_create_time`(`create_time` ASC) USING BTREE COMMENT '创建时间索引',
-  INDEX `idx_goods_type`(`goods_type` ASC) USING BTREE COMMENT '物品分类索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '二手交易物品表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of second_hand
--- ----------------------------
-INSERT INTO `second_hand` VALUES (1, 1, '小米14手机', '数码配件', 2, 3500.00, '99新，无磕碰，配件齐全', '', '北门快递站', 1, 0, '2026-03-23 14:53:18', '2026-03-23 14:53:18');
-INSERT INTO `second_hand` VALUES (2, 2, '山地自行车', '代步工具', 3, 800.00, '9成新，刚换轮胎', '', '宿舍楼下', 1, 0, '2026-03-23 14:53:18', '2026-03-23 14:53:18');
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
+-- --------------------------------------
+-- 第一步：创建用户表 user
+-- --------------------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `student_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '学号（唯一）',
-  `nick_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '校园用户' COMMENT '用户昵称',
-  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码（建议加密存储）',
-  `major` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '所属专业',
-  `dorm_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '宿舍号',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '头像URL',
-  `credit_score` int NULL DEFAULT 100 COMMENT '信誉积分（初始100）',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '手机号',
-  `is_deleted` int NULL DEFAULT 0 COMMENT '逻辑删除：0-未删 1-已删',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_student_no`(`student_no` ASC) USING BTREE COMMENT '学号唯一索引',
-  INDEX `idx_create_time`(`create_time` ASC) USING BTREE COMMENT '创建时间索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+CREATE TABLE `user` (
+    `userid` BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+    `student_no` VARCHAR(50) DEFAULT NULL COMMENT '学号',
+    `nick_name` VARCHAR(50) DEFAULT NULL COMMENT '昵称',
+    `password` VARCHAR(255) DEFAULT NULL COMMENT '密码',
+    `major` VARCHAR(100) DEFAULT NULL COMMENT '专业',
+    `dorm_no` VARCHAR(50) DEFAULT NULL COMMENT '宿舍号',
+    `avatar` VARCHAR(255) DEFAULT NULL COMMENT '头像路径',
+    `credit_score` INT DEFAULT 100 COMMENT '信用分',
+    `phone` VARCHAR(20) DEFAULT NULL COMMENT '手机号',
+    `is_deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除标记 0未删除 1已删除',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`userid`),
+    KEY `idx_student_no` (`student_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES (1, '2023001', '张三', '123456', '计算机科学与技术', '', '', 100, '', 0, '2026-03-23 14:53:18', '2026-03-23 14:53:18');
-INSERT INTO `user` VALUES (2, '2023002', '李四', '123456', '软件工程', '', '', 95, '', 0, '2026-03-23 14:53:18', '2026-03-23 14:53:18');
+-- --------------------------------------
+-- 第二步：创建校园动态表 campus_news
+-- --------------------------------------
+DROP TABLE IF EXISTS `campus_news`;
+CREATE TABLE `campus_news` (
+    `news_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '动态ID',
+    `publish_id` BIGINT DEFAULT 0 COMMENT '发布者ID (0=管理员)',
+    `title` VARCHAR(200) DEFAULT NULL COMMENT '标题',
+    `content` TEXT COMMENT '内容',
+    `img_urls` VARCHAR(1000) DEFAULT '' COMMENT '图片路径（逗号分隔）',
+    `type` INT DEFAULT 2 COMMENT '类型 1=校园通知 2=社团活动 3=生活贴士 4=校友动态',
+    `like_num` INT DEFAULT 0 COMMENT '点赞数',
+    `status` INT DEFAULT 1 COMMENT '状态 0=待审核 1=已发布',
+    `is_deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除标记',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`news_id`),
+    KEY `idx_publish_id` (`publish_id`),
+    KEY `idx_type` (`type`),
+    KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='校园动态表';
 
-SET FOREIGN_KEY_CHECKS = 1;
+-- --------------------------------------
+-- 第三步：创建求购信息表 purchase_info
+-- --------------------------------------
+DROP TABLE IF EXISTS `purchase_info`;
+CREATE TABLE `purchase_info` (
+    `purchase_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '求购ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '发布者用户ID',
+    `title` VARCHAR(200) DEFAULT NULL COMMENT '标题',
+    `content` TEXT COMMENT '内容',
+    `category` VARCHAR(50) DEFAULT NULL COMMENT '分类',
+    `price` DECIMAL(10,2) DEFAULT NULL COMMENT '预算价格',
+    `contact` VARCHAR(100) DEFAULT NULL COMMENT '联系方式',
+    `status` INT DEFAULT 1 COMMENT '状态 0=待审核 1=已发布',
+    `is_deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除标记',
+    `is_urgent` TINYINT DEFAULT 0 COMMENT '是否急需 0=否 1=是',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`purchase_id`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_category` (`category`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='求购信息表';
+
+-- --------------------------------------
+-- 第四步：创建闲置物品表 second_hand
+-- --------------------------------------
+DROP TABLE IF EXISTS `second_hand`;
+CREATE TABLE `second_hand` (
+    `second_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '闲置物品ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '卖家用户ID',
+    `goods_name` VARCHAR(200) DEFAULT NULL COMMENT '商品名称',
+    `goods_type` VARCHAR(50) DEFAULT NULL COMMENT '商品类型',
+    `quality` INT DEFAULT 3 COMMENT '新旧程度 1=全新 2=99新 3=9成新 4=8成新 5=一般',
+    `price` DECIMAL(10,2) DEFAULT NULL COMMENT '价格',
+    `goods_desc` TEXT COMMENT '商品描述',
+    `img_urls` VARCHAR(1000) DEFAULT '' COMMENT '图片路径（逗号分隔）',
+    `trade_address` VARCHAR(200) DEFAULT NULL COMMENT '交易地点',
+    `status` INT DEFAULT 1 COMMENT '状态 0=待审核 1=已发布 2=已售出',
+    `is_deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除标记',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`second_id`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_goods_type` (`goods_type`),
+    KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='闲置物品表';
+
+-- --------------------------------------
+-- 第五步：创建失物招领表 lost_found
+-- --------------------------------------
+DROP TABLE IF EXISTS `lost_found`;
+CREATE TABLE `lost_found` (
+    `lost_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '失物招领ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '发布者用户ID',
+    `type` INT DEFAULT 1 COMMENT '类型 1=寻物 2=拾物',
+    `goods_name` VARCHAR(200) DEFAULT NULL COMMENT '物品名称',
+    `address` VARCHAR(200) DEFAULT NULL COMMENT '地点',
+    `happen_time` DATETIME DEFAULT NULL COMMENT '发生时间',
+    `goods_desc` TEXT COMMENT '物品描述',
+    `img_urls` VARCHAR(1000) DEFAULT '' COMMENT '图片路径（逗号分隔）',
+    `status` INT DEFAULT 1 COMMENT '状态 0=待审核 1=已发布 2=已解决',
+    `is_deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除标记',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`lost_id`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='失物招领表';
+
+-- --------------------------------------
+-- 第六步：创建消息表 message
+-- --------------------------------------
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+    `message_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '消息ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '接收者用户ID',
+    `sender_user_id` BIGINT DEFAULT NULL COMMENT '发送者用户ID（系统通知时存对方用户ID用于联系入口）',
+    `item_type` VARCHAR(50) DEFAULT NULL COMMENT '关联业务类型 second/purchase/news/lost',
+    `item_id` BIGINT DEFAULT NULL COMMENT '关联业务ID',
+    `item_title` VARCHAR(200) DEFAULT NULL COMMENT '关联业务标题',
+    `type` INT DEFAULT 0 COMMENT '消息类型 0=聊天消息 1=系统通知',
+    `title` VARCHAR(200) DEFAULT NULL COMMENT '标题',
+    `content` TEXT COMMENT '内容',
+    `is_read` INT DEFAULT 0 COMMENT '是否已读 0=未读 1=已读',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`message_id`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_sender_user_id` (`sender_user_id`),
+    KEY `idx_type` (`type`),
+    KEY `idx_is_read` (`is_read`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息表';
+
+-- --------------------------------------
+-- 第七步：创建收藏表 collect_info
+-- --------------------------------------
+DROP TABLE IF EXISTS `collect_info`;
+CREATE TABLE `collect_info` (
+    `collect_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '收藏ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '用户ID',
+    `target_id` BIGINT DEFAULT NULL COMMENT '目标业务ID',
+    `target_type` INT DEFAULT 1 COMMENT '目标类型 1=闲置物品 2=求购信息 3=校园动态 4=失物招领',
+    `collect_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '收藏时间',
+    PRIMARY KEY (`collect_id`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_target` (`target_type`, `target_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='收藏表';
+
+-- --------------------------------------
+-- 第八步：创建反馈表 feedback
+-- --------------------------------------
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE `feedback` (
+    `feedback_id` INT NOT NULL AUTO_INCREMENT COMMENT '反馈ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '用户ID',
+    `type` VARCHAR(50) DEFAULT NULL COMMENT '反馈类型',
+    `content` TEXT COMMENT '反馈内容',
+    `contact` VARCHAR(100) DEFAULT NULL COMMENT '联系方式',
+    `status` INT DEFAULT 0 COMMENT '状态 0=待处理 1=已处理',
+    `reply` TEXT COMMENT '回复内容',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`feedback_id`),
+    KEY `idx_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='反馈表';
+
+-- --------------------------------------
+-- 第九步：创建订单表 purchase_record
+-- --------------------------------------
+DROP TABLE IF EXISTS `purchase_record`;
+CREATE TABLE `purchase_record` (
+    `record_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+    `user_id` BIGINT DEFAULT NULL COMMENT '买家用户ID',
+    `seller_id` BIGINT DEFAULT NULL COMMENT '卖家用户ID',
+    `second_id` BIGINT DEFAULT NULL COMMENT '闲置物品ID',
+    `goods_name` VARCHAR(200) DEFAULT NULL COMMENT '商品名称',
+    `goods_type` VARCHAR(50) DEFAULT NULL COMMENT '商品类型',
+    `price` DECIMAL(10,2) DEFAULT NULL COMMENT '价格',
+    `img_urls` VARCHAR(1000) DEFAULT '' COMMENT '商品图片',
+    `status` INT DEFAULT 0 COMMENT '状态 0=待付款 1=已付款 2=已发货 3=已完成',
+    `pay_time` DATETIME DEFAULT NULL COMMENT '付款时间',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`record_id`),
+    KEY `idx_user_id` (`user_id`),
+    KEY `idx_seller_id` (`seller_id`),
+    KEY `idx_second_id` (`second_id`),
+    KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
+
+-- ============================================================
+--  以下为测试数据（可选执行）
+-- ============================================================
+
+-- --------------------------------------
+-- 用户（8个）
+-- --------------------------------------
+INSERT IGNORE INTO user (userid, student_no, nick_name, password, major, dorm_no, avatar, credit_score, phone, is_deleted, create_time, update_time) VALUES
+(1, '2023001', '张三', '123456', '计算机科学与技术', '1栋101', 'avatar/user_1.png', 100, '', 0, NOW(), NOW()),
+(2, '2023002', '李四', '123456', '软件工程', '1栋102', 'avatar/user_2.png', 100, '', 0, NOW(), NOW()),
+(3, '2023003', '王五', '123456', '软件工程', '5栋302', 'avatar/user_3.png', 100, '', 0, NOW(), NOW()),
+(4, '2023004', '赵六', '123456', '计算机科学与技术', '3栋201', 'avatar/user_4.png', 100, '', 0, NOW(), NOW()),
+(5, '2023005', '钱七', '123456', '网络工程', '4栋405', 'avatar/user_5.png', 100, '', 0, NOW(), NOW()),
+(6, '2023006', '孙八', '123456', '数据科学与大数据', '6栋108', 'avatar/user_6.png', 100, '', 0, NOW(), NOW()),
+(7, '2023007', '周九', '123456', '人工智能', '2栋502', 'avatar/user_7.png', 100, '', 0, NOW(), NOW()),
+(8, '2023008', '吴十', '123456', '信息管理', '1栋601', 'avatar/user_8.png', 100, '', 0, NOW(), NOW());
+
+-- --------------------------------------
+-- 广软动态（campus_news）
+-- type: 1=校园通知 2=社团活动 3=生活贴士 4=校友动态
+-- publish_id=0=管理员，其他数字=用户ID
+-- --------------------------------------
+INSERT IGNORE INTO campus_news (publish_id, title, content, img_urls, type, like_num, status, is_deleted, create_time, update_time) VALUES
+(1, '宿舍空调使用须知', '夏日来临，宿舍空调已开放使用。使用时请注意温度设置，避免直吹，温度建议26℃为佳。离开宿舍时请及时关闭空调，节约用电。发现故障请及时报修。', '', 3, 18, 1, 0, '2026-06-15 08:00:00', '2026-06-15 08:00:00'),
+(1, '食堂新菜单太好吃了！', '强烈推荐食堂二楼新开的麻辣香锅！料足味正，排队等了20分钟值了！周三还有特价活动哦。', '', 3, 45, 1, 0, '2026-06-12 12:30:00', '2026-06-12 12:30:00'),
+(2, '图书馆自习室预约指南', '图书馆二楼自习室需要提前一天预约，预约方式：登录图书馆官网或到服务台办理。夏季空调开放时间8:00-22:00。请保持安静，文明自习。', '', 3, 28, 1, 0, '2026-06-14 09:15:00', '2026-06-14 09:15:00'),
+(2, '计算机社团本周开放日', '本周六下午2点，计算机社团开放日活动！地点：实验楼A201。活动内容：编程挑战赛、VR体验、机器人展示。欢迎所有感兴趣的同学前来参加，现场有小礼品赠送哦！', '', 2, 36, 1, 0, '2026-06-13 14:20:00', '2026-06-13 14:20:00'),
+(3, '摄影社户外摄影活动', '本周日上午8:00，摄影社将组织户外摄影活动，地点：校园东门广场。欢迎摄影爱好者带着你的相机一起来参加！活动后将进行作品评选，获奖者奖品丰厚。', '', 2, 52, 1, 0, '2026-06-11 16:45:00', '2026-06-11 16:45:00'),
+(3, '期末考试复习打卡', '期末复习第3天打卡！今天复习了数据结构和操作系统，感觉收获满满。大家一起加油，期末必胜！', '', 2, 41, 1, 0, '2026-06-10 22:30:00', '2026-06-10 22:30:00'),
+(4, '校园一卡通充值指南', '一卡通充值方式：1. 校园App线上充值；2. 食堂自助机现金充值；3. 微信小程序充值。充值遇到问题请联系一卡通服务中心：行政楼105室。', '', 3, 25, 1, 0, '2026-06-09 10:00:00', '2026-06-09 10:00:00'),
+(4, '辩论社新学期招新', '辩论社新学期招新啦！每周三晚7点在图书馆报告厅举行公开例会，欢迎对辩论感兴趣的同学前来围观，现场可报名。加入我们，提升你的口才与思辨能力！', '', 2, 33, 1, 0, '2026-06-08 19:00:00', '2026-06-08 19:00:00'),
+(5, '校园歌手大赛报名中', '校园歌手大赛报名火热进行中！报名截止6月25日，初赛6月28日，决赛7月5日。奖品丰厚，欢迎热爱音乐的同学们报名参加！', '', 2, 67, 1, 0, '2026-06-07 11:00:00', '2026-06-07 11:00:00'),
+(5, '今天的校园好美', '今天阳光明媚，走在校园路上心情特别好。实验楼前的紫荆花终于开了！分享几张照片，大家觉得怎么样～', '', 2, 38, 1, 0, '2026-06-06 08:45:00', '2026-06-06 08:45:00'),
+(6, '优秀校友分享会预告', '本周五下午3点，我校2020级优秀校友返校分享求职与学习经验。地点：图书馆报告厅。欢迎所有同学前来聆听，机会难得！', '', 4, 85, 1, 0, '2026-06-05 15:00:00', '2026-06-05 15:00:00'),
+(6, '校园网使用小技巧', '分享几个校园网使用的小技巧：1. 连接Wi-Fi时优先选择信号强的区域；2. 下载大文件建议在凌晨避开高峰期；3. 网络故障可拨打网络中心电话报修。', '', 3, 22, 1, 0, '2026-06-04 17:30:00', '2026-06-04 17:30:00'),
+(7, '学长学姐的职场心得', '作为刚毕业一年的学长，分享一下从校园到职场的过渡心得：1. 保持学习心态；2. 多问多做；3. 建立人脉。祝学弟学妹们都能找到理想工作！', '', 4, 103, 1, 0, '2026-06-03 20:10:00', '2026-06-03 20:10:00'),
+(7, '运动打卡第一天', '今天开始了我的健身计划！操场跑步3公里+俯卧撑20个。有一起锻炼的小伙伴吗？欢迎在评论区留言互相监督！', '', 2, 47, 1, 0, '2026-06-02 19:00:00', '2026-06-02 19:00:00'),
+(8, '校友返校日活动预告', '2026年校友返校日定于7月15日举行，届时将有校友论坛、校园参观、校友晚宴等活动。欢迎历届校友返校相聚，重温校园时光。', '', 4, 58, 1, 0, '2026-06-01 14:00:00', '2026-06-01 14:00:00'),
+(8, '选课攻略分享', '新学期选课即将开始！给大家分享一下我的选课经验：1. 先看课程介绍和老师评价；2. 结合自己的学习计划；3. 不要一次选太多课。有问题欢迎在评论区提问！', '', 2, 72, 1, 0, '2026-05-31 16:30:00', '2026-05-31 16:30:00'),
+(0, '春季运动会报名通知', '一年一度的春季运动会即将开幕！6月25日开放报名，项目涵盖田径、篮球、排球、羽毛球等。报名截止：2026年6月30日。', '', 1, 120, 1, 0, '2026-06-16 08:00:00', '2026-06-16 08:00:00'),
+(0, '校园网络升级通知', '为提升校园网络质量，将于本周六（6月20日）晚上22:00-次日凌晨2:00进行网络升级，届时全校无线网络会短暂中断，请提前准备。', '', 1, 45, 1, 0, '2026-06-17 10:30:00', '2026-06-17 10:30:00'),
+(0, '期末考试时间安排公告', '期末考试时间已公布，请同学们登录教务系统查看详细安排。考试周为2026年6月22日至7月3日。诚信应考，祝考试顺利！', '', 1, 88, 1, 0, '2026-06-18 09:15:00', '2026-06-18 09:15:00');
+
+-- --------------------------------------
+-- 求购信息（purchase_info）
+-- --------------------------------------
+INSERT IGNORE INTO purchase_info (user_id, title, content, category, price, contact, create_time, update_time, status, is_deleted, is_urgent) VALUES
+(1, '求购二手iPad Air5', '收一台无拆无修、电池健康90%以上的iPad Air5，128G内存即可，带原装配件最好。', '数码', 3000.00, '微信：student01', '2026-06-15 10:00:00', '2026-06-15 10:00:00', 1, 0, 1),
+(1, '求购英语四级真题', '求购2023-2025英语四级历年真题，带答案解析，最好是华研外语或新东方版本。', '学习资料', 30.00, '微信：zhang_san', '2026-06-13 09:30:00', '2026-06-13 09:30:00', 1, 0, 0),
+(2, '求购高等数学教材', '收一本高等数学同济版教材，无笔记或笔记清晰，新旧不限，最好带课后习题册。', '学习资料', 20.00, 'QQ：12345678', '2026-06-14 11:20:00', '2026-06-14 11:20:00', 1, 0, 0),
+(2, '急需一台二手笔记本电脑', '急需一台二手笔记本电脑，i5以上处理器，8G内存+256G固态，用于编程开发，价格面议。', '数码', 2500.00, '手机号：13800000002', '2026-06-12 22:00:00', '2026-06-12 22:00:00', 1, 0, 1),
+(3, '求购一辆代步电动车', '求购一辆二手电动车，续航20公里以上，电池健康无问题，有合格证和发票。', '代步工具', 800.00, '微信：wang_wu', '2026-06-11 14:40:00', '2026-06-11 14:40:00', 1, 0, 0),
+(3, '求购软件工程专业书', '求购《软件工程》《软件质量保证与管理》《软件设计模式》等专业书，价格面议。', '学习资料', 50.00, 'QQ：33333333', '2026-06-10 16:00:00', '2026-06-10 16:00:00', 1, 0, 0),
+(4, '求购宿舍小冰箱', '求购一台宿舍用小冰箱，50升以下，制冷功能正常，静音优先。', '生活用品', 200.00, '微信：zhao_liu', '2026-06-09 18:20:00', '2026-06-09 18:20:00', 1, 0, 0),
+(4, '求购考研英语辅导资料', '求购考研英语词汇书、阅读理解和历年真题，何凯文或张剑版本优先。', '学习资料', 50.00, 'QQ：44444444', '2026-06-08 10:30:00', '2026-06-08 10:30:00', 1, 0, 1),
+(5, '收羽毛球拍', '收一对羽毛球拍，尤尼克斯或胜利品牌，中高端型号，球拍完整无损伤。', '运动用品', 150.00, '微信：qian_qi', '2026-06-07 15:50:00', '2026-06-07 15:50:00', 1, 0, 0),
+(5, '求购二手洗衣机', '求购一台小型洗衣机，宿舍合租用，5-8公斤容量，功能正常。', '生活用品', 300.00, '手机号：13800000005', '2026-06-06 19:00:00', '2026-06-06 19:00:00', 1, 0, 0),
+(6, '求购设计类书籍', '求购《设计模式》《重构》《代码整洁之道》等经典计算机类书籍。', '学习资料', 80.00, '微信：sun_ba', '2026-06-05 21:30:00', '2026-06-05 21:30:00', 1, 0, 0),
+(6, '求购机械键盘', '求购Cherry红轴或青轴机械键盘，104键或87键都行，外观无损坏。', '数码', 200.00, 'QQ：66666666', '2026-06-04 12:00:00', '2026-06-04 12:00:00', 1, 0, 0),
+(7, '求购篮球', '求购一个标准篮球，摩腾或斯伯丁品牌，7成新以上即可。', '运动用品', 80.00, '微信：zhou_jiu', '2026-06-03 14:15:00', '2026-06-03 14:15:00', 1, 0, 0),
+(7, '求购Switch游戏卡', '求购几张Switch游戏卡，塞尔达传说、马里奥等热门游戏，价格面议。', '其他', 300.00, '微信：zhou_jiu', '2026-06-02 16:45:00', '2026-06-02 16:45:00', 1, 0, 1),
+(8, '求购二手Kindle', '收一台Kindle电子书阅读器，Paperwhite或Oasis都可以，屏幕无损坏。', '数码', 400.00, '微信：wu_shi', '2026-06-01 11:30:00', '2026-06-01 11:30:00', 1, 0, 0),
+(8, '求购微波炉', '求购一台小型微波炉，宿舍合着用，容量20L左右，功能正常就行。', '生活用品', 150.00, 'QQ：88888888', '2026-05-31 10:00:00', '2026-05-31 10:00:00', 1, 0, 0);
+
+-- --------------------------------------
+-- 闲置物品（second_hand）
+-- quality: 1=全新 2=99新 3=9成新 4=8成新 5=一般
+-- --------------------------------------
+INSERT IGNORE INTO second_hand (user_id, goods_name, goods_type, quality, price, goods_desc, img_urls, trade_address, status, is_deleted, create_time, update_time) VALUES
+(1, '小米14手机', '数码配件', 2, 3500.00, '99新，无磕碰，配件齐全，买了不到3个月，换新机出掉。', '', '北门快递站', 1, 0, '2026-06-15 09:00:00', '2026-06-15 09:00:00'),
+(1, '联想小新Pro14笔记本', '数码配件', 3, 2800.00, '8成新，i5处理器，16G内存，512G固态硬盘，开机仅需5秒。', '', '宿舍', 1, 0, '2026-06-14 10:00:00', '2026-06-14 10:00:00'),
+(1, '无线鼠标', '数码配件', 2, 50.00, '99新，罗技无线鼠标M185，电池续航6个月，送备用电池。', '', '实验楼', 1, 0, '2026-06-16 08:30:00', '2026-06-16 08:30:00'),
+(2, '山地自行车', '代步工具', 3, 800.00, '9成新，刚换轮胎，骑了不到一个学期，毕业出，自提。', '', '宿舍楼下', 1, 0, '2026-06-13 11:00:00', '2026-06-13 11:00:00'),
+(2, '索尼WH-1000XM4耳机', '数码配件', 2, 1200.00, '99新，顶级降噪蓝牙耳机，音质出色，配件齐全，原装包装保留。', '', '图书馆门口', 1, 0, '2026-06-12 12:00:00', '2026-06-12 12:00:00'),
+(2, '台灯', '生活用品', 3, 35.00, '9成新，LED护眼台灯，三档亮度可调，USB充电，续航约8小时。', '', '图书馆', 1, 0, '2026-06-15 18:30:00', '2026-06-15 18:30:00'),
+(3, 'iPad 2021 64G', '数码配件', 2, 1800.00, '99新，银色版，无磕碰无划痕，电池健康98%，配原装充电器。', '', '教学楼门口', 1, 0, '2026-06-11 13:00:00', '2026-06-11 13:00:00'),
+(3, 'Kindle Paperwhite', '数码配件', 3, 500.00, '9成新，第11代，6.8寸屏幕，防水设计，已贴膜，送保护套。', '', '图书馆', 1, 0, '2026-06-10 14:00:00', '2026-06-10 14:00:00'),
+(3, '键盘+鼠标套装', '数码配件', 3, 80.00, '9成新，雷柏无线键鼠套装，USB接收器，办公游戏两用。', '', '教学楼', 1, 0, '2026-06-14 17:30:00', '2026-06-14 17:30:00'),
+(4, '小米电动滑板车', '代步工具', 3, 1500.00, '9成新，续航约25公里，最高时速25km/h，适合校园代步。', '', '南门', 1, 0, '2026-06-09 15:00:00', '2026-06-09 15:00:00'),
+(4, 'Switch OLED主机+游戏', '数码配件', 2, 2000.00, '99新，Switch OLED版，红蓝配色，附带塞尔达传说和马里奥两张游戏卡。', '', '实验楼门口', 1, 0, '2026-06-08 16:00:00', '2026-06-08 16:00:00'),
+(4, '折叠自行车', '代步工具', 4, 300.00, '8成新，20寸折叠自行车，轻便好骑，适合短距离出行。', '', '北门', 1, 0, '2026-06-13 07:30:00', '2026-06-13 07:30:00'),
+(5, '小米手环7', '数码配件', 3, 120.00, '9成新，黑色表带，功能齐全，续航约14天，心率监测+消息提醒。', '', '体育馆', 1, 0, '2026-06-07 17:00:00', '2026-06-07 17:00:00'),
+(5, '小冰箱', '生活用品', 4, 220.00, '8成新，小型宿舍冰箱，容量50L，制冷功能正常，静音，适合单人使用。', '', '宿舍', 1, 0, '2026-06-06 18:00:00', '2026-06-06 18:00:00'),
+(5, '机械键盘Cherry红轴', '数码配件', 2, 280.00, '99新，Cherry红轴机械键盘，104键全尺寸，白色背光，键盘手感好。', '', '实验楼', 1, 0, '2026-06-12 08:30:00', '2026-06-12 08:30:00'),
+(6, '滑板', '运动用品', 4, 100.00, '8成新，双翘滑板，木质板面，轮子有点磨损，可继续使用，适合新手。', '', '操场', 1, 0, '2026-06-05 19:00:00', '2026-06-05 19:00:00'),
+(6, '运动水壶', '运动用品', 2, 20.00, '99新，750ml运动水壶，蓝色，带吸管盖，防漏设计，轻便耐用。', '', '体育馆', 1, 0, '2026-06-04 20:00:00', '2026-06-04 20:00:00'),
+(6, '电动牙刷', '生活用品', 2, 100.00, '99新，飞利浦电动牙刷，声波震动，附带2个全新刷头。', '', '宿舍', 1, 0, '2026-06-11 21:30:00', '2026-06-11 21:30:00'),
+(7, '书架', '生活用品', 5, 50.00, '简易金属书架，5层，约1.5米高，放书或杂物都可以，需要自己组装。', '', '宿舍楼下', 1, 0, '2026-06-03 21:00:00', '2026-06-03 21:00:00'),
+(7, '羽毛球拍（一对）', '运动用品', 3, 120.00, '9成新，胜利牌羽毛球拍，碳素材质，轻量，送羽毛球一筒。', '', '体育馆', 1, 0, '2026-06-02 22:00:00', '2026-06-02 22:00:00'),
+(7, '路由器', '数码配件', 3, 60.00, '9成新，小米路由器4A千兆版，双频AC1200，适合宿舍使用。', '', '宿舍', 1, 0, '2026-06-10 20:30:00', '2026-06-10 20:30:00'),
+(8, '小米扫地机器人', '生活用品', 3, 500.00, '9成新，米家扫地机器人，扫拖一体，带充电底座，App远程控制。', '', '宿舍', 1, 0, '2026-06-01 23:00:00', '2026-06-01 23:00:00'),
+(8, '小熊玩偶', '其他', 2, 30.00, '99新，20cm白色小熊玩偶，柔软舒适，送女友或自用都合适。', '', '图书馆三楼', 1, 0, '2026-05-31 09:00:00', '2026-05-31 09:00:00'),
+(8, '二手显示器24寸', '数码配件', 3, 350.00, '9成新，24寸1080P IPS显示器，60Hz刷新率，VGA+HDMI双接口。', '', '实验楼', 1, 0, '2026-06-09 15:30:00', '2026-06-09 15:30:00');
+
+-- --------------------------------------
+-- 失物招领（lost_found）
+-- type: 1=寻物 2=拾物
+-- --------------------------------------
+INSERT IGNORE INTO lost_found (user_id, type, goods_name, address, happen_time, goods_desc, img_urls, status, is_deleted, create_time, update_time) VALUES
+(1, 1, '校园卡', '图书馆3楼', '2026-06-15 14:00:00', '卡号2023001，姓名张三，卡套为蓝色，有一个小熊挂饰。', '', 1, 0, '2026-06-15 15:00:00', '2026-06-15 15:00:00'),
+(1, 2, '雨伞', '校车站台', '2026-06-14 08:30:00', '黑色长柄伞，伞骨结实，无明显损坏，早上在站台捡到。', '', 1, 0, '2026-06-14 09:30:00', '2026-06-14 09:30:00'),
+(2, 1, '钥匙一串', '教学楼A栋一楼', '2026-06-13 17:30:00', '一串约5把钥匙，有一个蓝色挂扣和红色挂绳，包含宿舍钥匙和教室门钥匙。', '', 1, 0, '2026-06-13 18:30:00', '2026-06-13 18:30:00'),
+(2, 2, '保温杯', '食堂2楼', '2026-06-12 12:00:00', '白色保温杯，带小熊图案，杯盖有一点磨损，内有未喝完的茶水。', '', 1, 0, '2026-06-12 13:00:00', '2026-06-12 13:00:00'),
+(3, 1, '黑色双肩包', '实验楼门口', '2026-06-11 18:00:00', '黑色双肩包，电脑包样式，内装有一台MacBook笔记本和一些零散笔记。', '', 1, 0, '2026-06-11 19:00:00', '2026-06-11 19:00:00'),
+(3, 2, '手机充电器', '自习室A', '2026-06-10 21:30:00', '白色Type-C快充头和一条USB-C数据线，品牌为绿联，充电速度快。', '', 1, 0, '2026-06-10 22:30:00', '2026-06-10 22:30:00'),
+(4, 1, '眼镜', '食堂三楼', '2026-06-09 12:30:00', '黑色框近视眼镜，镜架右侧有一点掉漆，度数约400度，配眼镜盒。', '', 1, 0, '2026-06-09 13:30:00', '2026-06-09 13:30:00'),
+(4, 2, '蓝牙耳机', '操场跑道旁', '2026-06-08 16:20:00', '白色AirPods Pro，捡到时还带一点电，外壳有轻微划痕。', '', 1, 0, '2026-06-08 17:20:00', '2026-06-08 17:20:00'),
+(5, 1, '笔记本电脑', '图书馆二楼', '2026-06-07 15:45:00', '联想小新Pro14笔记本，银色外壳，电脑包为蓝色，带有电源适配器和鼠标。', '', 1, 0, '2026-06-07 16:45:00', '2026-06-07 16:45:00'),
+(5, 2, '学生证', '教学楼B栋2楼', '2026-06-06 14:00:00', '李四的学生证，学号2023002，红色封皮，内有照片和一卡通信息。', '', 1, 0, '2026-06-06 15:00:00', '2026-06-06 15:00:00'),
+(6, 1, '校园卡', '超市门口', '2026-06-05 10:00:00', '捡到一张校园卡，卡主信息显示学号2023001，姓名张三，请失主到超市服务台认领。', '', 1, 0, '2026-06-05 11:00:00', '2026-06-05 11:00:00'),
+(6, 2, '钱包', '宿舍楼下', '2026-06-04 19:30:00', '棕色皮质钱包，内有100元左右现金和一张银行卡，还有几张收据。', '', 1, 0, '2026-06-04 20:30:00', '2026-06-04 20:30:00'),
+(7, 1, '水杯', '教学楼教室', '2026-06-03 20:00:00', '橙色保温杯，500ml容量，杯身有一些刮痕，盖子是旋转式的。', '', 1, 0, '2026-06-03 21:00:00', '2026-06-03 21:00:00'),
+(7, 2, 'U盘', '机房C', '2026-06-02 14:30:00', '闪迪64G U盘，银色，上面贴有蓝色标签写着"作业资料"，请失主联系。', '', 1, 0, '2026-06-02 15:30:00', '2026-06-02 15:30:00'),
+(8, 1, '教科书', '教学楼301教室', '2026-06-01 15:00:00', '一本《算法导论》第三版，封面写有"王五"字样，内有大量学习笔记。', '', 1, 0, '2026-06-01 16:00:00', '2026-06-01 16:00:00'),
+(8, 2, '羽毛球拍', '体育馆', '2026-05-31 18:00:00', '尤尼克斯羽毛球拍一支，有握胶磨损，拍套为蓝色，捡到时间约下午6点。', '', 1, 0, '2026-05-31 19:00:00', '2026-05-31 19:00:00');
+
+-- --------------------------------------
+-- 第十步：订单表（purchase_record）
+-- status: 0=待付款 1=已付款 2=已发货 3=已完成
+-- --------------------------------------
+INSERT IGNORE INTO purchase_record (user_id, seller_id, second_id, goods_name, goods_type, price, img_urls, status, pay_time, create_time, update_time) VALUES
+(3, 1, 1, '小米14手机', '数码配件', 3500.00, '', 3, '2026-06-15 14:00:00', '2026-06-15 13:00:00', '2026-06-15 14:00:00'),
+(4, 1, 2, '联想小新Pro14笔记本', '数码配件', 2800.00, '', 3, '2026-06-14 18:00:00', '2026-06-14 17:00:00', '2026-06-14 18:00:00'),
+(5, 2, 4, '山地自行车', '代步工具', 800.00, '', 3, '2026-06-13 16:00:00', '2026-06-13 15:00:00', '2026-06-13 16:00:00'),
+(6, 3, 7, 'iPad 2021 64G', '数码配件', 1800.00, '', 1, '2026-06-12 10:00:00', '2026-06-12 09:00:00', '2026-06-12 10:00:00'),
+(7, 2, 5, '索尼WH-1000XM4耳机', '数码配件', 1200.00, '', 2, '2026-06-11 20:00:00', '2026-06-11 19:00:00', '2026-06-11 20:00:00'),
+(8, 1, 3, '无线鼠标', '数码配件', 50.00, '', 1, '2026-06-10 22:00:00', '2026-06-10 21:00:00', '2026-06-10 22:00:00');
+
+-- --------------------------------------
+-- 第十一步：消息表（message）
+-- type: 0=聊天消息 1=系统通知
+-- 系统通知的 sender_user_id 存的是"对方用户ID"（用于联系入口）
+-- --------------------------------------
+INSERT IGNORE INTO message (user_id, sender_user_id, item_type, item_id, item_title, type, title, content, is_read, create_time) VALUES
+-- 系统通知：订单相关（买家视角，sender_user_id=卖家ID，可联系卖家）
+(3, 1, 'second', 1, '小米14手机', 1, '订单创建成功', '您已成功创建「小米14手机」订单，等待卖家确认交易。', 0, '2026-06-15 13:00:00'),
+(3, 1, 'second', 1, '小米14手机', 1, '订单已完成', '您购买的「小米14手机」已完成交易，感谢使用！', 0, '2026-06-15 14:00:00'),
+(4, 1, 'second', 2, '联想小新Pro14笔记本', 1, '订单创建成功', '您已成功创建「联想小新Pro14笔记本」订单，等待卖家确认交易。', 0, '2026-06-14 17:00:00'),
+(4, 1, 'second', 2, '联想小新Pro14笔记本', 1, '订单已完成', '您购买的「联想小新Pro14笔记本」已完成交易，感谢使用！', 0, '2026-06-14 18:00:00'),
+(5, 2, 'second', 4, '山地自行车', 1, '订单创建成功', '您已成功创建「山地自行车」订单，等待卖家确认交易。', 0, '2026-06-13 15:00:00'),
+(5, 2, 'second', 4, '山地自行车', 1, '订单已完成', '您购买的「山地自行车」已完成交易，感谢使用！', 0, '2026-06-13 16:00:00'),
+(6, 3, 'second', 7, 'iPad 2021 64G', 1, '订单创建成功', '您已成功创建「iPad 2021 64G」订单，等待卖家确认交易。', 0, '2026-06-12 09:00:00'),
+(6, 3, 'second', 7, 'iPad 2021 64G', 1, '订单已发货', '您购买的「iPad 2021 64G」卖家已发货，请注意查收。', 0, '2026-06-12 10:00:00'),
+(7, 2, 'second', 5, '索尼WH-1000XM4耳机', 1, '订单创建成功', '您已成功创建「索尼WH-1000XM4耳机」订单，等待卖家确认交易。', 0, '2026-06-11 19:00:00'),
+(7, 2, 'second', 5, '索尼WH-1000XM4耳机', 1, '订单已发货', '您购买的「索尼WH-1000XM4耳机」卖家已发货，请注意查收。', 0, '2026-06-11 20:00:00'),
+(8, 1, 'second', 3, '无线鼠标', 1, '订单创建成功', '您已成功创建「无线鼠标」订单，等待卖家确认交易。', 0, '2026-06-10 21:00:00'),
+(8, 1, 'second', 3, '无线鼠标', 1, '订单已发货', '您购买的「无线鼠标」卖家已发货，请注意查收。', 0, '2026-06-10 22:00:00'),
+
+-- 系统通知：订单相关（卖家视角，sender_user_id=买家ID，可联系买家）
+(1, 3, 'second', 1, '小米14手机', 1, '新订单通知', '买家「王五」已购买「小米14手机」，请及时处理并发货。', 0, '2026-06-15 13:00:00'),
+(1, 3, 'second', 1, '小米14手机', 1, '订单已完成', '买家「王五」已确认收货，「小米14手机」交易完成。', 0, '2026-06-15 14:00:00'),
+(1, 4, 'second', 2, '联想小新Pro14笔记本', 1, '新订单通知', '买家「赵六」已购买「联想小新Pro14笔记本」，请及时处理并发货。', 0, '2026-06-14 17:00:00'),
+(1, 4, 'second', 2, '联想小新Pro14笔记本', 1, '订单已完成', '买家「赵六」已确认收货，「联想小新Pro14笔记本」交易完成。', 0, '2026-06-14 18:00:00'),
+(1, 8, 'second', 3, '无线鼠标', 1, '新订单通知', '买家「吴十」已购买「无线鼠标」，请及时处理并发货。', 0, '2026-06-10 21:00:00'),
+(1, 8, 'second', 3, '无线鼠标', 1, '订单已发货', '买家「吴十」已确认发货，「无线鼠标」交易进行中。', 0, '2026-06-10 22:00:00'),
+(2, 5, 'second', 4, '山地自行车', 1, '新订单通知', '买家「钱七」已购买「山地自行车」，请及时处理并发货。', 0, '2026-06-13 15:00:00'),
+(2, 5, 'second', 4, '山地自行车', 1, '订单已完成', '买家「钱七」已确认收货，「山地自行车」交易完成。', 0, '2026-06-13 16:00:00'),
+(2, 7, 'second', 5, '索尼WH-1000XM4耳机', 1, '新订单通知', '买家「周九」已购买「索尼WH-1000XM4耳机」，请及时处理并发货。', 0, '2026-06-11 19:00:00'),
+(2, 7, 'second', 5, '索尼WH-1000XM4耳机', 1, '订单已发货', '买家「周九」已确认发货，「索尼WH-1000XM4耳机」交易进行中。', 0, '2026-06-11 20:00:00'),
+(3, 6, 'second', 7, 'iPad 2021 64G', 1, '新订单通知', '买家「孙八」已购买「iPad 2021 64G」，请及时处理并发货。', 0, '2026-06-12 09:00:00'),
+(3, 6, 'second', 7, 'iPad 2021 64G', 1, '订单已发货', '买家「孙八」已确认发货，「iPad 2021 64G」交易进行中。', 0, '2026-06-12 10:00:00'),
+
+-- 系统通知：其他类型（失物招领相关）
+(1, 2, 'lost', 2, '雨伞', 1, '失物招领通知', '李四发布了新的拾物信息「雨伞」，地点：校车站台。', 1, '2026-06-14 09:30:00'),
+(2, 1, 'lost', 1, '校园卡', 1, '寻物启事通知', '张三发布了新的寻物信息「校园卡」，地点：图书馆3楼。', 1, '2026-06-15 15:00:00'),
+
+-- 系统通知：校园动态相关
+(1, 0, 'news', 17, '春季运动会报名通知', 1, '系统通知', '您关注的「春季运动会报名通知」有新动态。', 1, '2026-06-16 08:00:00'),
+
+-- 聊天消息示例（type=0，sender_user_id=发送者，user_id=接收者）
+(1, 3, 'second', 1, '小米14手机', 0, '', '你好，手机还在吗？可以便宜点吗？', 1, '2026-06-14 20:00:00'),
+(3, 1, 'second', 1, '小米14手机', 0, '', '在的呢，价格已经是最低了', 1, '2026-06-14 20:05:00'),
+(1, 3, 'second', 1, '小米14手机', 0, '', '好的，那我下单了', 1, '2026-06-14 20:10:00'),
+(8, 1, 'second', 3, '无线鼠标', 0, '', '老板，无线鼠标包邮吗？', 1, '2026-06-10 15:00:00'),
+(1, 8, 'second', 3, '无线鼠标', 0, '', '校内可以送货上门', 1, '2026-06-10 15:05:00'),
+(8, 1, 'second', 3, '无线鼠标', 0, '', '好的，下单了', 1, '2026-06-10 15:10:00'),
+(2, 5, 'second', 4, '山地自行车', 0, '', '学长，山地自行车轮胎什么品牌的？', 1, '2026-06-13 10:00:00'),
+(5, 2, 'second', 4, '山地自行车', 0, '', '是米其林的，刚换的新胎', 1, '2026-06-13 10:05:00'),
+(2, 5, 'second', 4, '山地自行车', 0, '', '挺好的，要了', 1, '2026-06-13 10:08:00');
