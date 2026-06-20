@@ -1,56 +1,36 @@
 <view class="page">
-  <!-- 顶部标题 -->
+  <!-- 顶部标题和发布按钮 -->
   <view class="header">
-    <view class="title">消息</view>
+    <view class="title">失物招领</view>
+    <view class="publish-btn" bindtap="goPublish">+ 发布</view>
   </view>
 
-  <!-- 消息列表 -->
+  <!-- 分类筛选 -->
+  <view class="tabs">
+    <view class="tab {{currentTab === '' ? 'active' : ''}}" bindtap="switchTab" data-type="">全部</view>
+    <view class="tab {{currentTab === '1' ? 'active' : ''}}" bindtap="switchTab" data-type="1">寻物启事</view>
+    <view class="tab {{currentTab === '2' ? 'active' : ''}}" bindtap="switchTab" data-type="2">失物招领</view>
+  </view>
+
+  <!-- 列表 -->
   <scroll-view scroll-y class="list">
-    <!-- 系统通知 -->
-    <view class="msg-item">
-      <view class="avatar blue">🔔</view>
-      <view class="content">
-        <view class="row">
-          <view class="name">系统通知</view>
-          <view class="time">刚刚</view>
-        </view>
-        <view class="desc">您发布的闲置商品已被拍下，请及时处理~</view>
-      </view>
+    <view wx:if="{{list.length === 0}}" class="empty">
+      <view class="empty-icon">📭</view>
+      <view class="empty-text">暂无数据</view>
     </view>
 
-    <!-- 交易消息 -->
-    <view class="msg-item">
-      <view class="avatar green">🤝</view>
-      <view class="content">
-        <view class="row">
-          <view class="name">交易消息</view>
-          <view class="time">10分钟前</view>
-        </view>
-        <view class="desc">用户「某某同学」对您的商品感兴趣，快来聊聊吧！</view>
-      </view>
-    </view>
+    <view wx:for="{{list}}" wx:key="lostId" class="card" bindtap="goDetail" data-id="{{item.lostId}}">
+      <!-- 标签 -->
+      <view class="type-tag {{item.type === 1 ? 'lost' : 'found'}}">{{item.type === 1 ? '寻物启事' : '失物招领'}}</view>
 
-    <!-- 平台公告 -->
-    <view class="msg-item">
-      <view class="avatar orange">📢</view>
-      <view class="content">
-        <view class="row">
-          <view class="name">平台公告</view>
-          <view class="time">昨天</view>
+      <view class="card-content">
+        <image wx:if="{{item.imgUrl}}" class="img" src="{{item.imgUrl}}" mode="aspectFill"></image>
+        <view class="info">
+          <view class="goods-name">{{item.goodsName}}</view>
+          <view class="address">📍 {{item.address}}</view>
+          <view class="desc">{{item.goodsDesc}}</view>
+          <view class="time">发布时间：{{item.timeStr}}</view>
         </view>
-        <view class="desc">平台将于本周六进行维护，届时部分功能将暂停使用。</view>
-      </view>
-    </view>
-
-    <!-- 客服消息 -->
-    <view class="msg-item">
-      <view class="avatar purple">🎧</view>
-      <view class="content">
-        <view class="row">
-          <view class="name">在线客服</view>
-          <view class="time">3天前</view>
-        </view>
-        <view class="desc">您反馈的问题已处理完成，如有其他问题可随时联系我们~</view>
       </view>
     </view>
   </scroll-view>

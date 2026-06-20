@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="history-list" wx:if="{{historyList.length > 0}}">
+    <view class="history-item" 
+          wx:for="{{historyList}}" 
+          wx:key="historyId"
+          bindtap="goDetail" 
+          data-type="{{item.targetType}}" 
+          data-id="{{item.targetId}}">
+      <view class="item-left">
+        <view class="item-name">{{item.title}}</view>
+        <view class="item-desc">{{item.content}}</view>
+        <view class="item-time">浏览时间：{{item.viewTime}}</view>
+      </view>
+      <view class="item-tag">
+        <text wx:if="{{item.targetType === 1}}" class="tag-idle">闲置</text>
+        <text wx:elif="{{item.targetType === 2}}" class="tag-wanted">求购</text>
+        <text wx:elif="{{item.targetType === 3}}" class="tag-dynamic">动态</text>
+        <text wx:elif="{{item.targetType === 4}}" class="tag-lost">失物</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <text>暂无浏览记录</text>
+  </view>
+  <button class="clear-btn" bindtap="clearHistory">清空浏览记录</button>
+</view>

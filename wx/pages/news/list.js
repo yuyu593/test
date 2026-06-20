@@ -6,7 +6,27 @@ Page({
   },
 
   onLoad() {
+    const app = getApp()
+    const type = app.globalData.categoryType
+    if (type) {
+      this.setData({
+        currentTab: type
+      })
+      app.globalData.categoryType = ''
+    }
     this.getList()
+  },
+
+  onShow() {
+    const app = getApp()
+    const type = app.globalData.categoryType
+    if (type && type !== this.data.currentTab) {
+      this.setData({
+        currentTab: type
+      })
+      app.globalData.categoryType = ''
+      this.getList()
+    }
   },
 
   switchTab(e) {

@@ -82,12 +82,7 @@ page {
 }
 
 /* 评论区 */
-.comment-wrap {
-  background: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  margin-bottom: 120rpx;
-}
+.comment-wrap { background: #fff; border-radius: 16rpx; padding: 30rpx; margin-bottom: 200rpx; }
 .comment-title {
   font-size: 32rpx;
   font-weight: bold;
@@ -170,3 +165,14 @@ page {
   color: #ff4444; 
   transform: scale(1.1);
 }
+.contact-btn { background: #409eff; color: #fff; border-radius: 30rpx; font-size: 24rpx;
+  padding: 0 24rpx; height: 56rpx; line-height: 56rpx; margin-left: auto; }
+
+/* 私信弹窗 */
+.modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: center; justify-content: center; }
+.modal-card { width: 600rpx; background: #fff; border-radius: 20rpx; padding: 40rpx; }
+.modal-title { font-size: 30rpx; font-weight: bold; color: #333; margin-bottom: 24rpx; }
+.modal-input { width: 100%; min-height: 200rpx; background: #f5f7fa; border-radius: 12rpx; padding: 20rpx; font-size: 28rpx; color: #333; box-sizing: border-box; }
+.modal-actions { display: flex; justify-content: flex-end; margin-top: 24rpx; gap: 20rpx; }
+.modal-cancel { background: #f0f0f0; color: #666; border-radius: 40rpx; font-size: 28rpx; padding: 0 40rpx; height: 72rpx; line-height: 72rpx; }
+.modal-confirm { background: #409eff; color: #fff; border-radius: 40rpx; font-size: 28rpx; padding: 0 40rpx; height: 72rpx; line-height: 72rpx; }

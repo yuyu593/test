@@ -1,0 +1,64 @@
+page { background: #ededed; height: 100%; }
+.page { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+.chat-list {
+  flex: 1; padding: 20rpx; box-sizing: border-box;
+  padding-bottom: 120rpx; height: 0; /* 配合 flex:1 使 scroll-view 有明确高度 */
+}
+
+.empty {
+  text-align: center; padding: 120rpx 0; color: #999;
+}
+.empty-icon { font-size: 80rpx; margin-bottom: 16rpx; }
+.empty-text { font-size: 26rpx; }
+
+.msg-row {
+  display: flex; margin-bottom: 24rpx; align-items: flex-start;
+}
+.msg-row.mine { justify-content: flex-end; }
+.msg-row.other { justify-content: flex-start; }
+
+.msg-avatar {
+  width: 72rpx; height: 72rpx; border-radius: 12rpx;
+  background: #409eff; color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 28rpx; font-weight: bold; flex-shrink: 0;
+  margin-right: 16rpx;
+}
+.msg-row.mine .msg-avatar { background: #409eff; margin-right: 0; margin-left: 16rpx; order: 2; }
+.msg-row.other .msg-avatar { background: #36d399; order: 0; }
+
+.bubble {
+  max-width: 65%; padding: 20rpx 24rpx; border-radius: 16rpx;
+  background: #fff; position: relative;
+  word-break: break-all;
+}
+.msg-row.mine .bubble {
+  background: #95ec69; order: 1;
+}
+
+.bubble-item {
+  font-size: 24rpx; color: #333; margin-bottom: 12rpx;
+  background: #fff5e6; padding: 8rpx 12rpx; border-radius: 8rpx;
+  border-left: 4rpx solid #ff9900;
+}
+.bubble-content {
+  font-size: 30rpx; color: #333; line-height: 1.5;
+}
+.bubble-time {
+  font-size: 20rpx; color: #999; margin-top: 12rpx; text-align: right;
+}
+
+.input-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center; padding: 16rpx 20rpx;
+  background: #f7f7f7; border-top: 1rpx solid #e5e5e5;
+  z-index: 100;
+}
+.msg-input {
+  flex: 1; height: 72rpx; background: #fff; border-radius: 8rpx;
+  padding: 0 20rpx; font-size: 28rpx;
+}
+.send-btn {
+  margin-left: 16rpx; height: 72rpx; line-height: 72rpx; background: #409eff; color: #fff;
+  border-radius: 8rpx; font-size: 28rpx; padding: 0 28rpx;
+}

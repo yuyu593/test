@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="order-card">
+    <view class="card-header">订单信息</view>
+    <view class="goods-info" wx:if="{{record}}">
+      <image wx:if="{{record.imgUrls}}" src="{{baseUrl + record.imgUrls}}" class="goods-img"></image>
+      <view wx:else class="img-placeholder">📦</view>
+      <view class="goods-detail">
+        <view class="goods-name">{{record.goodsName}}</view>
+        <view class="goods-type">{{record.goodsType}}</view>
+        <view class="price">¥{{record.price}}</view>
+      </view>
+    </view>
+    <view class="empty" wx:else>订单信息加载失败</view>
+  </view>
+
+  <view class="pay-card">
+    <view class="card-header">付款方式</view>
+    <view class="pay-method">
+      <view class="method-item active">
+        <text class="icon">💳</text>
+        <text class="name">微信支付</text>
+        <text class="check">✓</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="amount-card">
+    <view class="amount-label">应付金额</view>
+    <view class="amount-value">¥{{record && record.price ? record.price : 0}}</view>
+  </view>
+
+  <view class="btn-group">
+    <view class="cancel-btn" bindtap="cancelPay">稍后付款</view>
+    <button class="pay-btn" bindtap="doPay">确认付款</button>
+  </view>
+</view>

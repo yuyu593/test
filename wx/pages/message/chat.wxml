@@ -1,0 +1,24 @@
+<view class="page">
+  <scroll-view scroll-y class="chat-list" scroll-top="{{scrollTop}}" scroll-with-animation>
+    <view wx:if="{{messages.length === 0}}" class="empty">
+      <view class="empty-icon">💬</view>
+      <view class="empty-text">还没有消息，发送第一条吧</view>
+    </view>
+
+    <block wx:for="{{messages}}" wx:key="messageId">
+      <view id="msg_{{item.messageId}}" class="msg-row {{item.isMine ? 'mine' : 'other'}}">
+        <view class="msg-avatar">{{item.isMine ? '我' : nickNameFirst}}</view>
+        <view class="bubble">
+          <view wx:if="{{item.itemTitle}}" class="bubble-item">【{{item.itemType === 'lost' ? '失物招领' : '求购'}}】{{item.itemTitle}}</view>
+          <view class="bubble-content">{{item.content}}</view>
+          <view class="bubble-time">{{item.timeStr || (item.createTime ? item.createTime.substring(0,19).replace('T',' ') : '')}}</view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="input-bar">
+    <input class="msg-input" placeholder="输入消息..." value="{{draft}}" bindinput="onDraftInput" bindconfirm="onSend" confirm-type="send" />
+    <button class="send-btn" bindtap="onSend">发送</button>
+  </view>
+</view>

@@ -1,0 +1,72 @@
+page {
+  background: #f5f7fa;
+}
+.page {
+  padding: 20rpx;
+}
+
+.section {
+  background: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.avatar-row,
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.avatar-row:last-child,
+.form-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #333;
+  width: 140rpx;
+}
+
+.value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.input {
+  flex: 1;
+  font-size: 28rpx;
+  text-align: right;
+  color: #333;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+.default-avatar {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50rpx;
+}
+
+.arrow {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.save-btn {
+  margin-top: 40rpx;
+  background: #409eff;
+  color: #fff;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+}

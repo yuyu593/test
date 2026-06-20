@@ -14,7 +14,7 @@ Page({
     this.setData({ pwd: e.detail.value })
   },
 
-  // 登录（修复版）
+  // 登录
   async login() {
     const { studentNo, pwd } = this.data
     if (!studentNo || !pwd) {
@@ -30,8 +30,12 @@ Page({
 
       getApp().globalData.userInfo = user
       wx.setStorageSync('userInfo', user)
+      wx.setStorageSync('userId', user.userid || user.userId)
 
       wx.showToast({ title: '登录成功' })
+
+      // 登录成功后立即检查未读消息，更新 tabBar 角标
+      getApp().checkUnread()
 
       // 跳首页（不会再卡登录页）
       wx.switchTab({

@@ -9,7 +9,7 @@ spring:
     enabled: false
   web:
     resources:
-      static-locations: classpath:/static/,file:./upload/images/
+      static-locations: classpath:/static/,file:./upload/images/,file:./file/
   # 文件上传大小限制
   servlet:
     multipart:
@@ -19,7 +19,7 @@ spring:
 # 自定义图片路径配置（方便代码中引用）
 file:
   upload:
-    path: ./upload/images/
+    path: ./file/
     access-path: /images/ # 前端访问前缀
 
 mybatis-plus:

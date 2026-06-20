@@ -1,0 +1,57 @@
+page { background: #f5f7fa; }
+.page { padding: 30rpx; }
+.detail-card { background: #fff; border-radius: 16rpx; padding: 30rpx; }
+.header { display: flex; align-items: flex-start; margin-bottom: 20rpx; padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0; }
+.avatar { width: 80rpx; height: 80rpx; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 32rpx; margin-right: 20rpx; flex-shrink: 0; }
+.avatar.system { background: #e0ebff; color: #409eff; }
+.avatar.user { background: #e8f8ee; color: #36d399; }
+.info { flex: 1; }
+.title { font-size: 32rpx; font-weight: bold; }
+.time { font-size: 24rpx; color: #999; margin-top: 8rpx; }
+.subject { font-size: 28rpx; color: #333; margin-bottom: 16rpx; padding: 16rpx;
+  background: #f8f9fa; border-radius: 8rpx; }
+.content { font-size: 28rpx; color: #333; line-height: 1.8; }
+
+/* 联系对方区域 */
+.contact-area {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe8d6 100%);
+  border-radius: 16rpx;
+  padding: 30rpx;
+  border: 2rpx solid #ffd4a3;
+}
+.contact-title {
+  font-size: 28rpx;
+  color: #e67700;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+.contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #ff922b 0%, #fd7e14 100%);
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  box-shadow: 0 6rpx 20rpx rgba(253, 126, 20, 0.35);
+}
+.btn-icon { font-size: 36rpx; margin-right: 12rpx; }
+.btn-text { font-size: 30rpx; }
+
+/* 普通回复区 */
+.reply-area {
+  margin-top: 30rpx; background: #fff; border-radius: 16rpx; padding: 30rpx;
+}
+.reply-input {
+  width: 100%; min-height: 180rpx; background: #f5f7fa; border-radius: 12rpx;
+  padding: 20rpx; font-size: 28rpx; color: #333; box-sizing: border-box;
+}
+.reply-btn {
+  margin-top: 20rpx; background: #409eff; color: #fff; border-radius: 40rpx; font-size: 30rpx;
+}

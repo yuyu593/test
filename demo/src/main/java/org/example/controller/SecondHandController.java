@@ -92,4 +92,34 @@ public class SecondHandController {
 
         return Result.success(map);
     }
+    @GetMapping("/sell/my/list")
+    public Result<List<SecondHand>> getMySell(@RequestParam Long userId){
+        List<SecondHand> list = secondHandService.lambdaQuery()
+                .eq(SecondHand::getUserId,userId)
+                .eq(SecondHand::getIsDeleted,0)
+                .list();
+        return Result.success(list);
+    }
+    //我卖出数量接口
+    @GetMapping("/sell/count")
+    public Result<Long> getSellCount(@RequestParam Long userId){
+        long count = secondHandService.lambdaQuery()
+                .eq(SecondHand::getUserId,userId)
+                .eq(SecondHand::getStatus,1)
+                .eq(SecondHand::getIsDeleted,0)
+                .count();
+        return Result.success(count);
+    }
+
+    @GetMapping("/search")
+    public Result<List<SecondHand>> search(@RequestParam String keyword) {
+        return secondHandService.search(keyword);
+    }
+
+    @PostMapping("/buy")
+    public Result<String> buy(@RequestBody Map<String, Long> params) {
+        Long secondId = params.get("secondId");
+        Long userId = params.get("userId");
+        return secondHandService.buy(secondId, userId);
+    }
 }

@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="detail-card">
+    <view class="header">
+      <view class="avatar {{message.senderUserId ? 'user' : 'system'}}">{{message.senderUserId ? '💬' : '🔔'}}</view>
+      <view class="info">
+        <view class="title">{{message.senderNickName || '系统通知'}}</view>
+        <view class="time">{{message.timeStr}}</view>
+      </view>
+    </view>
+    <view class="subject" wx:if="{{message.title}}">{{message.title}}</view>
+    <view class="content">{{message.content}}</view>
+  </view>
+
+  <!-- 系统通知 / 带对方用户信息时，提供联系入口 -->
+  <view wx:if="{{message.type === 1 && message.otherUserId}}" class="contact-area">
+    <view class="contact-title">与对方沟通，确认交易细节</view>
+    <view class="contact-btn" bindtap="goChat">
+      <text class="btn-icon">💬</text>
+      <text class="btn-text">联系{{message.otherName || '对方'}}</text>
+    </view>
+  </view>
+</view>

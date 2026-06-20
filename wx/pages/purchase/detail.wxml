@@ -35,6 +35,7 @@
     <view class="attr-row">
       <text class="attr-label">联系方式</text>
       <text class="attr-text">{{detail.contact}}</text>
+      <button class="contact-btn" bindtap="showSendMsg">💬 私信</button>
     </view>
 
     <view class="desc-wrap">
@@ -61,5 +62,17 @@
   <view class="comment-input-wrap">
     <input class="input" placeholder="说点什么..." bindinput="onInputComment" value="{{commentContent}}"/>
     <button class="submit-btn" bindtap="submitComment">发布</button>
+  </view>
+</view>
+
+<!-- 私信弹窗 -->
+<view wx:if="{{showMsgModal}}" class="modal-mask" catchtap="hideSendMsg">
+  <view class="modal-card" catchtap="noop">
+    <view class="modal-title">发私信给 {{currentUser.nickname}}</view>
+    <textarea class="modal-input" placeholder="请输入私信内容..." value="{{msgContent}}" bindinput="onMsgInput" maxlength="200" auto-height></textarea>
+    <view class="modal-actions">
+      <button class="modal-cancel" bindtap="hideSendMsg">取消</button>
+      <button class="modal-confirm" bindtap="doSendMsg">发送</button>
+    </view>
   </view>
 </view>

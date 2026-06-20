@@ -59,9 +59,25 @@ page {
   overflow: hidden;
   margin-bottom: 30rpx;
 }
-.banner image {
+.banner-slide {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+.gradient-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.gradient-green {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+.gradient-orange {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
 /* 分类图标 */
@@ -126,37 +142,43 @@ page {
 }
 .goods-card {
   background: white;
-  border-radius: 12rpx;
+  border-radius: 16rpx;
   overflow: hidden;
 }
 .goods-card image {
   width: 100%;
-  height: 260rpx;
+  height: 320rpx;
+}
+.img-placeholder {
+  width: 100%;
+  height: 320rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120rpx;
 }
 .info {
-  padding: 16rpx;
+  padding: 20rpx;
 }
-.title {
-  font-size: 28rpx;
-  color: #333;
+.goods-name {
+  font-size: 30rpx;
+  color: #000000;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.tags {
-  display: flex;
-  margin-top: 12rpx;
+.price {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff4444;
+  margin-bottom: 6rpx;
 }
-.tag {
-  font-size: 22rpx;
-  padding: 4rpx 12rpx;
-  border-radius: 20rpx;
-  margin-right: 10rpx;
-}
-.tag.quality {
-  background: #fee;
-  color: #f56c6c;
-}
-.tag.seller {
-  background: #f0f0f0;
-  color: #666;
+.type {
+  font-size: 24rpx;
+  color: #999;
 }
 
 /* 搜索结果 */

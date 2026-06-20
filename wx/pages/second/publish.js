@@ -14,8 +14,8 @@ Page({
 
   onLoad() {
     const user = getApp().globalData.userInfo
-    if (user && user.id) {
-      this.setData({ "form.userId": user.id })
+    if (user && user.userId) {
+      this.setData({ "form.userId": user.userId })
     }
   },
 
@@ -50,7 +50,6 @@ Page({
 
     wx.showLoading({ title: "发布中..." })
 
-    // ====================== 上传图片 ======================
     wx.uploadFile({
       url: "http://127.0.0.1:8080/campus/upload",
       filePath: form.imgUrls,

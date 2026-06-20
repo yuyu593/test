@@ -11,4 +11,6 @@ public interface SecondHandService extends IService<SecondHand> {
     Result<List<SecondHand>> listByCondition(String goodsType, Double minPrice, Double maxPrice, Integer quality);
     Result<String> updateStatus(Long id, Integer status);
     Result<List<SecondHand>> listByUserId(Long userId);
+    Result<List<SecondHand>> search(String keyword);
+    Result<String> buy(Long secondId, Long userId);
 }

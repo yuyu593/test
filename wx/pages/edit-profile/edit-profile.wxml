@@ -1,0 +1,38 @@
+<view class="page">
+  <!-- 头像设置 -->
+  <view class="section">
+    <view class="avatar-row">
+      <text class="label">头像</text>
+      <image wx:if="{{form.avatar}}" src="{{baseUrl + form.avatar}}" class="avatar" bindtap="chooseAvatar" />
+      <view wx:else class="avatar default-avatar" bindtap="chooseAvatar">👤</view>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="section">
+    <view class="form-row">
+      <text class="label">昵称</text>
+      <input class="input" placeholder="请输入昵称" value="{{form.nickName}}" bindinput="onInput" data-field="nickName" />
+    </view>
+    <view class="form-row">
+      <text class="label">学号</text>
+      <text class="value">{{form.studentNo}}</text>
+    </view>
+    <view class="form-row">
+      <text class="label">专业</text>
+      <input class="input" placeholder="请输入专业" value="{{form.major}}" bindinput="onInput" data-field="major" />
+    </view>
+    <view class="form-row">
+      <text class="label">宿舍</text>
+      <input class="input" placeholder="请输入宿舍号" value="{{form.dormNo}}" bindinput="onInput" data-field="dormNo" />
+    </view>
+    <view class="form-row">
+      <text class="label">联系电话</text>
+      <input class="input" type="number" placeholder="请输入电话" value="{{form.phone}}" bindinput="onInput" data-field="phone" />
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <button class="save-btn" bindtap="saveProfile">保存修改</button>
+</view>

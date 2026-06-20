@@ -1,0 +1,37 @@
+Page({
+  data:{
+    sellList:[]
+  },
+  onShow(){
+    this.getMySell()
+  },
+  getMySell(){
+    const user = getApp().globalData.userInfo
+    if(!user||!user.userId){
+      wx.showToast({title:"未登录",icon:"none"})
+      return
+    }
+    wx.showLoading({title:"加载中"})
+    wx.request({
+      url:"http://127.0.0.1:8080/campus/second/sell/my/list?userId="+user.userId,
+      method:"GET",
+      success:(res)=>{
+        wx.hideLoading()
+        console.log("接口返回：",res.data)
+        if(res.data.code===200){
+          this.setData({
+            sellList:res.data.data
+          })
+        }
+      },
+      fail:()=>{
+        wx.hideLoading()
+        wx.showToast({title:"请求失败",icon:"none"})
+      }
+    })
+  },
+  goDetail(e){
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({url:"/pages/second/detail?id="+id})
+  }
+})

@@ -1,0 +1,30 @@
+<view class="page">
+  <view class="header">
+    <view class="title">消息</view>
+    <view class="action" bindtap="markAllRead">全部已读</view>
+  </view>
+
+  <scroll-view scroll-y class="list">
+    <view wx:if="{{chats.length === 0}}" class="empty">
+      <view class="empty-icon">📭</view>
+      <view class="empty-text">暂无消息</view>
+    </view>
+
+    <block wx:for="{{chats}}" wx:key="key">
+      <view class="msg-item" bindtap="goDetail" data-item="{{item}}">
+        <view class="avatar {{item.isSystem ? 'system' : 'user'}}">{{item.isSystem ? '🔔' : '💬'}}</view>
+        <view class="content">
+          <view class="row">
+            <view class="name">{{item.nickName}}</view>
+            <view class="time">{{item.lastTime}}</view>
+          </view>
+          <view class="desc">{{item.lastContent}}</view>
+          <view wx:if="{{item.isSystem && item.otherUserId}}" class="quick-chat" catchtap="goChat" data-item="{{item}}">
+            💬 联系{{item.otherName || '对方'}}
+          </view>
+        </view>
+        <view wx:if="{{item.unreadCount > 0}}" class="badge">{{item.unreadCount > 99 ? '99+' : item.unreadCount}}</view>
+      </view>
+    </block>
+  </scroll-view>
+</view>

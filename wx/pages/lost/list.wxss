@@ -1,68 +1,30 @@
-page {
-  background: #f5f7fa;
-}
-.page {
-  padding: 30rpx;
-}
+page { background: #f5f7fa; }
+.page { padding: 30rpx; }
 
-/* 顶部标题 */
-.header {
-  padding: 20rpx 0 30rpx;
-}
-.title {
-  font-size: 36rpx;
-  font-weight: bold;
-}
+.header { display: flex; justify-content: space-between; align-items: center; padding: 20rpx 0 30rpx; }
+.title { font-size: 36rpx; font-weight: bold; }
+.publish-btn { background: #409eff; color: #fff; padding: 12rpx 30rpx; border-radius: 40rpx; font-size: 26rpx; }
 
-/* 消息列表 */
-.list {
-  height: calc(100vh - 150rpx);
-}
-.msg-item {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  margin-bottom: 16rpx;
-}
-.avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32rpx;
-  margin-right: 20rpx;
-}
-.avatar.blue { background: #e0ebff; color: #409eff; }
-.avatar.green { background: #e8f8ee; color: #36d399; }
-.avatar.orange { background: #fff3e6; color: #ff9800; }
-.avatar.purple { background: #f5ebff; color: #b37feb; }
-.content {
-  flex: 1;
-}
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8rpx;
-}
-.name {
-  font-size: 30rpx;
-  font-weight: bold;
-}
-.time {
-  font-size: 24rpx;
-  color: #999;
-}
-.desc {
-  font-size: 26rpx;
-  color: #666;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
+.tabs { display: flex; margin-bottom: 20rpx; background: #fff; border-radius: 16rpx; padding: 8rpx; }
+.tab { flex: 1; text-align: center; padding: 16rpx 0; font-size: 28rpx; color: #666; border-radius: 12rpx; }
+.tab.active { background: #409eff; color: #fff; }
+
+.list { height: calc(100vh - 230rpx); }
+
+.card { background: #fff; border-radius: 16rpx; padding: 24rpx; margin-bottom: 20rpx; position: relative; }
+.type-tag { position: absolute; top: 24rpx; right: 24rpx; padding: 6rpx 16rpx; border-radius: 8rpx; font-size: 22rpx; }
+.type-tag.lost { background: #ffe0e0; color: #ff4d4f; }
+.type-tag.found { background: #e0ffeb; color: #00b578; }
+
+.card-content { display: flex; }
+.img { width: 160rpx; height: 160rpx; border-radius: 12rpx; margin-right: 20rpx; }
+.info { flex: 1; }
+.goods-name { font-size: 30rpx; font-weight: bold; margin-bottom: 8rpx; color: #333; }
+.address { font-size: 24rpx; color: #666; margin-bottom: 8rpx; }
+.desc { font-size: 26rpx; color: #999; overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-line-clamp: 2; margin-bottom: 8rpx; }
+.time { font-size: 22rpx; color: #bbb; }
+
+.empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100rpx 0; }
+.empty-icon { font-size: 80rpx; margin-bottom: 20rpx; }
+.empty-text { font-size: 28rpx; color: #999; }

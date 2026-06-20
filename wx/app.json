@@ -3,18 +3,29 @@
     "pages/login/login",
     "pages/index/index",
     "pages/mine/mine",
-    "pages/second/list",
     "pages/second/publish",
     "pages/second/detail",
     "pages/lost/list",
     "pages/lost/publish",
     "pages/lost/detail",
+    "pages/message/list",
+    "pages/message/detail",
+    "pages/message/chat",
     "pages/news/list",
     "pages/news/detail",
     "pages/news/publish",
     "pages/purchase/publish",
     "pages/purchase/detail",
-    "pages/publish/select"
+    "pages/purchase/pay",
+    "pages/publish/select",
+    "pages/my-published/my-published",
+    "pages/my-sell/my-sell",
+    "pages/my-buy/my-buy",
+    "pages/collect/collect",
+    "pages/history/history",
+    "pages/feedback/feedback",
+    "pages/about/about",
+    "pages/edit-profile/edit-profile"
   ],
   "window": {
     "navigationBarTitleText": "校园服务",
@@ -45,7 +56,7 @@
         "selectedIconPath": "/pages/images/图标/发布点击.png"
       },
       {
-        "pagePath": "pages/lost/list",
+        "pagePath": "pages/message/list",
         "text": "消息",
         "iconPath": "/pages/images/图标/消息.png",
         "selectedIconPath": "/pages/images/图标/消息点击.png"

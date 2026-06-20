@@ -3,7 +3,7 @@
   <view class="top-bar">
     <view class="location">
       <text class="loc-icon">📍</text>
-      <text class="loc-text">广软校区</text>
+      <text class="loc-text">广州校区</text>
     </view>
     <view class="search-box">
       <text class="search-icon">🔍</text>
@@ -17,58 +17,59 @@
     </view>
   </view>
 
-  <!-- 轮播图 -->
+  <!-- 轮播图（用本地渐变背景代替外链图片，避免404） -->
   <swiper class="banner" indicator-dots autoplay circular>
     <swiper-item>
-      <image src="https://picsum.photos/seed/campus/750/300" mode="widthFix"></image>
+      <view class="banner-slide gradient-blue">🎓 校园生活服务平台</view>
     </swiper-item>
     <swiper-item>
-      <image src="https://picsum.photos/seed/school/750/300" mode="widthFix"></image>
+      <view class="banner-slide gradient-green">🛒 闲置交易 · 求购发布 · 失物招领</view>
     </swiper-item>
-  </swiper>
+    <swiper-item>
+      <view class="banner-slide gradient-orange">📢 分享校园趣事，认识更多同学</view>
+    </swiper-item>
+  </swiper> 
 
   <!-- 分类图标区 -->
   <view class="category-grid">
-    <view class="category-item" wx:for="{{categories}}" wx:key="index">
+    <view class="category-item" wx:for="{{categories}}" wx:key="index" bindtap="onCategoryTap" data-type="{{item.type}}">
       <view class="icon {{item.color}}">{{item.icon}}</view>
       <text class="name">{{item.name}}</text>
     </view>
   </view>
 
-  <!-- 搜索结果（输入关键词时显示） -->
+  <!-- 搜索结果 -->
   <view wx:if="{{searchKey}}" class="result-section">
     <view class="section-title">搜索结果</view>
-    <view class="goods-card" wx:for="{{searchResult}}" wx:key="id">
-      <image src="{{item.img || 'https://picsum.photos/seed/'+item.id+'/300/300'}}" mode="aspectFill"></image>
+    <view class="goods-card" wx:for="{{searchResult}}" wx:key="*this" bindtap="goDetail" data-id="{{item.secondId}}">
+      <image wx:if="{{item.imgUrls}}" src="{{baseUrl + item.imgUrls}}" mode="aspectFill"></image>
+      <view wx:else class="img-placeholder">📦</view>
       <view class="info">
-        <view class="title">{{item.goodsName}}</view>
-        <view class="tags">
-          <text class="tag quality">{{item.quality}}</text>
-          <text class="tag seller">{{item.seller}}</text>
-        </view>
+        <view class="goods-name">{{item.goodsName}}</view>
+        <view class="price">¥{{item.price}}</view>
+        <view class="type">{{item.goodsType}}</view>
       </view>
     </view>
     <view wx:if="{{searchResult.length === 0}}" class="empty">暂无相关商品</view>
   </view>
 
-  <!-- 默认猜你喜欢（无搜索时显示） -->
+  <!-- 猜你喜欢 -->
   <view wx:else>
     <view class="section-header">
       <view>
         <text class="title">猜你喜欢</text>
-        <text class="desc">2026年3月22日 实时更新</text>
+        <text class="desc">实时更新</text>
       </view>
       <text class="more" bindtap="goList">查看更多</text>
     </view>
     <view class="goods-grid">
-      <view class="goods-card" wx:for="{{recommendGoods}}" wx:key="id">
-        <image src="{{item.img || 'https://picsum.photos/seed/'+item.id+'/300/300'}}" mode="aspectFill"></image>
-        <view class="info">
-          <view class="title">{{item.goodsName}}</view>
-          <view class="tags">
-            <text class="tag quality">{{item.quality}}</text>
-            <text class="tag seller">{{item.seller}}</text>
-          </view>
+      <view class="goods-card" wx:for="{{recommendGoods}}" wx:key="*this" bindtap="goDetail" data-id="{{item.secondId}}">
+      <image wx:if="{{item.imgUrls}}" src="{{baseUrl + item.imgUrls}}" mode="aspectFill"></image>
+      <view wx:else class="img-placeholder">📦</view>
+      <view class="info">
+          <view class="goods-name">{{item.goodsName}}</view>
+          <view class="price">¥{{item.price}}</view>
+          <view class="type">{{item.goodsType}}</view>
         </view>
       </view>
     </view>

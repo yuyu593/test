@@ -70,6 +70,9 @@ public class PurchaseInfoController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("id", info.getPurchaseId());
+        map.put("purchaseId", info.getPurchaseId());
+        map.put("userId", info.getUserId());
+        map.put("publisherUserId", info.getUserId());
         map.put("title", info.getTitle());
         map.put("content", info.getContent());
         map.put("category", info.getCategory());

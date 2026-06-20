@@ -84,6 +84,8 @@ public class LostFoundController {
             map.put("avatar", "default.png");
         }
 
+        map.put("publisherUserId", lost.getUserId());
+
         return Result.success(map);
     }
 }

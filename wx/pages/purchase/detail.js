@@ -1,14 +1,21 @@
+const { post, get } = require('../../utils/request')
+
 Page({
   data: {
     baseUrl: "http://127.0.0.1:8080/campus/file/",
-    detail: {}, // 用空对象，避免 wx:if 不渲染
+    detail: {},
     commentList: [],
     commentContent: "",
     currentUser: {
       userId: 1,
       nickname: "匿名用户",
       avatar: ""
-    }
+    },
+    isCollected: false,
+    targetType: 2,
+    isLoading: false,
+    showMsgModal: false,
+    msgContent: ""
   },
 
   onLoad(options) {
@@ -21,6 +28,7 @@ Page({
     }
   },
 
+  // 获取求购详情
   getDetail(id) {
     wx.showLoading({ title: '加载中...' })
     wx.request({
@@ -31,13 +39,16 @@ Page({
         if (res.data.code === 200) {
           let detail = res.data.data;
           this.setData({
-            detail: detail || {}, // 防止后端返回 null
+            detail: detail || {},
             currentUser: {
               userId: detail?.userId || 1,
               nickname: detail?.nickname || "匿名用户",
               avatar: detail?.avatar || ""
             }
           });
+          this.refreshCollectStatus(id)
+          // 【关键】加载完成后调用保存浏览记录
+          this.saveHistory()
         } else {
           wx.showToast({ title: "加载失败", icon: "none" });
         }
@@ -50,15 +61,62 @@ Page({
       }
     })
   },
-  
-  toggleCollect() {
-    const newState = !this.data.isCollected;
-    this.setData({
-      isCollected: newState
-    });
-    wx.showToast({
-      title: newState ? "收藏成功" : "已取消收藏"
-    });
+
+  async refreshCollectStatus(targetId) {
+    const user = getApp().globalData.userInfo
+    if (!user || !user.userId) {
+      this.setData({ isCollected: false })
+      return
+    }
+    try {
+      const collectList = await get(`/collect/list/${user.userId}`)
+      console.log("收藏列表", collectList)
+      const isExist = collectList.some(item =>
+        item.targetId === parseInt(targetId) && item.targetType === this.data.targetType
+      )
+      this.setData({ isCollected: isExist })
+    } catch (err) {
+      console.error("刷新收藏状态失败", err)
+      this.setData({ isCollected: false })
+    }
+  },
+
+  async toggleCollect() {
+    if (this.data.isLoading) return
+    this.setData({ isLoading: true })
+
+    const { detail, targetType } = this.data
+    // 适配 purchase_info 表的主键字段 purchase_id
+    const targetId = detail.purchase_id || detail.id
+    const user = getApp().globalData.userInfo
+
+    if (!user || !user.userId) {
+      wx.showToast({ title: "请先登录", icon: "none" })
+      this.setData({ isLoading: false })
+      return
+    }
+    if (!targetId) {
+      wx.showToast({ title: "数据异常", icon: "none" })
+      this.setData({ isLoading: false })
+      return
+    }
+
+    try {
+      const res = await post('/collect/toggle', {
+        userId: user.userId,
+        targetId: targetId,
+        targetType: targetType
+      })
+      console.log("收藏操作返回：", res)
+      await this.refreshCollectStatus(targetId)
+      const tip = this.data.isCollected ? "收藏成功" : "已取消收藏"
+      wx.showToast({ title: tip })
+    } catch (err) {
+      console.error("收藏操作失败：", err)
+      wx.showToast({ title: "操作失败", icon: "none" })
+    } finally {
+      this.setData({ isLoading: false })
+    }
   },
 
   onInputComment(e) {
@@ -99,5 +157,111 @@ Page({
     let month = (date.getMonth() + 1).toString().padStart(2, '0');
     let day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+  },
+
+  noop() {},
+
+  showSendMsg() {
+    const userInfo = wx.getStorageSync('userInfo')
+    const userId = wx.getStorageSync('userId') || (userInfo && (userInfo.userid || userInfo.userId))
+    if (!userId) {
+      wx.showToast({ title: '请先登录', icon: 'none' })
+      return
+    }
+    const detail = this.data.detail || {}
+    const publisherId = detail.publisherUserId || detail.userId
+    if (!publisherId) {
+      wx.showToast({ title: '无法获取发布者信息', icon: 'none' })
+      return
+    }
+    if (String(userId) === String(publisherId)) {
+      wx.showToast({ title: '不能联系自己', icon: 'none' })
+      return
+    }
+    this.setData({ showMsgModal: true, msgContent: '' })
+  },
+
+  hideSendMsg() {
+    this.setData({ showMsgModal: false, msgContent: '' })
+  },
+
+  onMsgInput(e) {
+    this.setData({ msgContent: e.detail.value })
+  },
+
+  doSendMsg() {
+    const content = (this.data.msgContent || '').trim()
+    if (!content) {
+      wx.showToast({ title: '请输入内容', icon: 'none' })
+      return
+    }
+    const userInfo = wx.getStorageSync('userInfo')
+    const userId = wx.getStorageSync('userId') || (userInfo && (userInfo.userid || userInfo.userId))
+    const myName = (userInfo && (userInfo.nickName || userInfo.nickname)) || '匿名用户'
+    const detail = this.data.detail || {}
+    const publisherId = detail.publisherUserId || detail.userId
+
+    wx.showLoading({ title: '发送中...' })
+    wx.request({
+      url: "http://127.0.0.1:8080/campus/message/send",
+      method: 'POST',
+      data: {
+        senderUserId: userId,
+        userId: publisherId,
+        type: 2,
+        title: '来自' + myName + '的消息',
+        content: content,
+        itemType: 'purchase',
+        itemId: detail.purchaseId || detail.id,
+        itemTitle: detail.title
+      },
+      success: res => {
+        wx.hideLoading()
+        if (res.data.code === 200) {
+          this.setData({ showMsgModal: false, msgContent: '' })
+          wx.showToast({ title: '发送成功', icon: 'success' })
+          wx.navigateTo({
+            url: '/pages/message/chat?otherUserId=' + publisherId +
+                 '&nickName=' + encodeURIComponent(detail.nickname || '发布者') +
+                 '&itemType=purchase&itemId=' + (detail.purchaseId || detail.id) +
+                 '&itemTitle=' + encodeURIComponent(detail.title || '')
+          })
+        } else {
+          wx.showToast({ title: (res.data.msg || res.data.message) || '发送失败', icon: 'none' })
+        }
+      },
+      fail: () => {
+        wx.hideLoading()
+        wx.showToast({ title: '网络错误', icon: 'none' })
+      }
+    })
+  },
+
+  // 存入本地浏览记录（已适配 purchase_info 表字段）
+  saveHistory() {
+    const { detail, targetType } = this.data
+    const targetId = detail?.purchaseId || detail?.id
+    if (!detail || !targetId) return
+
+    const historyItem = {
+      targetId: targetId,
+      targetType: targetType,
+      // 适配表中的 title 和 content 字段
+      title: detail.title || '',
+      content: detail.content || '',
+      viewTime: this.formatTime(new Date())
+    }
+
+    let historyList = wx.getStorageSync('viewHistory') || []
+    historyList = historyList.filter(item =>
+      !(item.targetId === targetId && item.targetType === targetType)
+    )
+    historyList.unshift(historyItem)
+
+    if (historyList.length > 30) {
+      historyList = historyList.slice(0, 30)
+    }
+
+    wx.setStorageSync('viewHistory', historyList)
   }
 })

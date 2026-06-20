@@ -9,17 +9,17 @@
   </view>
 
   <!-- 动态图片 -->
- <view class="img-wrap" wx:if="{{detail.img_urls}}">
+  <view class="img-wrap" wx:if="{{detail.img_urls}}">
     <image src="{{baseUrl + detail.img_urls}}" mode="widthFix" class="goods-img"></image>
   </view>
 
-  <!-- 动态信息卡片 -->
+  <!-- 物品信息卡片 -->
   <view class="goods-info">
-    <!-- 标题+爱心收藏/点赞 -->
+    <!-- 标题+爱心收藏 -->
     <view class="title-wrap">
       <view class="goods-title">{{detail.title}}</view>
-      <view class="heart-btn {{isLiked ? 'collected' : ''}}" bindtap="toggleLike">
-        {{isLiked ? '♥' : '♡'}}
+      <view class="heart-btn {{isCollected ? 'collected' : ''}}" bindtap="toggleCollect">
+        {{isCollected ? '♥' : '♡'}}
       </view>
     </view>
 
